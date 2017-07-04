@@ -1,3 +1,5 @@
+extern crate rusteuler;
+
 use std::env;
 use std::io::prelude::*;
 use std::process;
@@ -21,15 +23,14 @@ fn main() {
         process::exit(1);
     });
 
-    match problem_number {
-        1 => println!("one!"),
-        _ => {
+    match rusteuler::run_problem(problem_number) {
+        Ok(answer) => println!("The solution is {}.", answer),
+        Err(err) => {
             writeln!(
                 &mut stderr,
-                "{} is not a valid problem number.",
-                problem_number
-            ).expect("could not write to stderr");
-            process::exit(1);
+                "An error was encountered running the problem: {}",
+                err
+            ).expect("could not write to stderr")
         }
     }
 }
