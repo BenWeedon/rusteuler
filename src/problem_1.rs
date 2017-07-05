@@ -32,3 +32,14 @@ pub fn problem_1() -> Result<u32, String> {
     }
     Ok(sum)
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn it_works() {
+        let solution = problem_1();
+        let solution = solution.unwrap_or_else(|err| panic!("{}", err));
+        assert_eq!(233168, solution);
+    }
+}
