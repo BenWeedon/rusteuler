@@ -3,9 +3,9 @@ use std::io::prelude::*;
 use std::sync::mpsc;
 use std::thread;
 
-pub fn problem_1() -> Result<u32, String> {
-    const UPPER_BOUND: u32 = 1000;
-    const MAX_THREADS: u32 = 5;
+pub fn problem_1() -> Result<u64, String> {
+    const UPPER_BOUND: u64 = 1000;
+    const MAX_THREADS: u64 = 5;
     let (tx, rx) = mpsc::channel();
 
     for i in 0..MAX_THREADS {
