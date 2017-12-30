@@ -16,19 +16,62 @@ pub fn is_prime(n: u64) -> bool {
     true
 }
 
+pub fn is_palindromic(n: u64) -> bool {
+    let n: f64 = n as f64;
+    let num_digits = n.log10().floor() + 1.0;
+    let mut i = 0_f64;
+    while i < num_digits / 2.0 {
+        let first_digit = ((n / 10_f64.powf(num_digits - 1.0 - i)) as u64 % 10) as f64;
+        let last_digit = ((n / 10_f64.powf(i)) as u64 % 10) as f64;
+        if first_digit != last_digit {
+            return false;
+        }
+        i += 1.0;
+    }
+    true
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
     #[test]
     fn is_prime_works() {
         let primes = vec![2, 3, 5, 7, 11, 13, 17, 2521, 6089, 7919];
-        for p in primes {
-            assert!(is_prime(p));
+        for n in primes {
+            assert!(is_prime(n));
         }
 
-        let nonprimes = vec![0, 1, 4, 6, 8, 9, 27, 3973, 7249];
-        for n in nonprimes {
+        let non_primes = vec![0, 1, 4, 6, 8, 9, 27, 3973, 7249];
+        for n in non_primes {
             assert!(!is_prime(n));
+        }
+    }
+
+    #[test]
+    fn is_palindromic_works() {
+        let palindromes = vec![
+            0,
+            1,
+            9,
+            11,
+            55,
+            101,
+            111,
+            232,
+            5555,
+            5005,
+            6116,
+            70207,
+            10001,
+        ];
+        for n in palindromes {
+            assert!(is_palindromic(n));
+        }
+
+        let non_palindromes = vec![12, 56, 72, 122, 311, 123, 1234, 5455, 71207];
+        for n in non_palindromes {
+            assert!(!is_palindromic(n));
         }
     }
 }
