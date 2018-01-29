@@ -39,7 +39,7 @@ mod tests {
     #[test]
     fn it_works() {
         let solution = problem_1();
-        let solution = solution.unwrap_or_else(|err| panic!("{}", err));
+        let solution = solution.unwrap();
         assert_eq!(233168, solution);
     }
 }
