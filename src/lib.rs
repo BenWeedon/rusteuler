@@ -4,6 +4,7 @@ mod problem_1;
 mod problem_2;
 mod problem_3;
 mod problem_4;
+mod problem_5;
 
 pub fn run_problem(problem_number: usize) -> Result<u64, String> {
     match problem_number {
@@ -11,6 +12,7 @@ pub fn run_problem(problem_number: usize) -> Result<u64, String> {
         2 => problem_2::problem_2(),
         3 => problem_3::problem_3(),
         4 => problem_4::problem_4(),
+        5 => problem_5::problem_5(),
         _ => Err(format!("{} is not a valid problem number.", problem_number)),
     }
 }
