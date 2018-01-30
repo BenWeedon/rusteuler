@@ -1,44 +1,19 @@
-use std::sync::{Arc, Mutex};
-use std::thread;
+use utils;
 
 pub fn problem_5() -> Result<u64, String> {
-    let current_bound = Arc::new(Mutex::new(20));
-    let lowest_result = Arc::new(Mutex::new(u64::max_value()));
-    const NUM_THREADS: u64 = 4;
-    let threads = (0..NUM_THREADS).map(|_| {
-        let current_bound = Arc::clone(&current_bound);
-        let lowest_result = Arc::clone(&lowest_result);
-        thread::spawn(move || loop {
-            let low_bound: u64;
-            let high_bound: u64;
-            {
-                let mut bound = current_bound.lock().unwrap();
-                low_bound = *bound;
-                *bound += 10000;
-                high_bound = *bound;
-            }
-
-            let opt = (low_bound..high_bound).find(|n| (2..21).all(|d| n % d == 0));
-            {
-                let mut lowest = lowest_result.lock().unwrap();
-                match opt {
-                    Some(v) => if v < *lowest {
-                        *lowest = v;
-                    },
-                    None => (),
-                }
-                if *lowest < u64::max_value() {
-                    break;
-                }
-            }
+    const K: u64 = 20;
+    let limit = (K as f64).sqrt();
+    Ok(utils::PrimeIter::new()
+        .take_while(|p| p <= &K)
+        .map(|p| {
+            let a = if p as f64 <= limit {
+                (K as f64).log(p as f64).floor() as u64
+            } else {
+                1
+            };
+            p.pow(a as u32)
         })
-    });
-
-    for t in threads {
-        t.join().unwrap();
-    }
-    let result = *lowest_result.lock().unwrap();
-    Ok(result)
+        .fold(1, |acc, n| acc * n))
 }
 
 #[cfg(test)]
