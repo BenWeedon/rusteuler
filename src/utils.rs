@@ -31,6 +31,27 @@ pub fn is_palindromic(n: u64) -> bool {
     true
 }
 
+pub struct PrimeIter {
+    curr_prime: u64,
+}
+impl PrimeIter {
+    pub fn new() -> PrimeIter {
+        PrimeIter { curr_prime: 1 }
+    }
+}
+impl Iterator for PrimeIter {
+    type Item = u64;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        loop {
+            self.curr_prime += 1;
+            if is_prime(self.curr_prime) {
+                return Some(self.curr_prime);
+            }
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -60,6 +81,16 @@ mod tests {
         let non_palindromes = vec![12, 56, 72, 122, 311, 123, 1234, 5455, 71207];
         for n in non_palindromes {
             assert!(!is_palindromic(n));
+        }
+    }
+
+    #[test]
+    fn prime_iter_works() {
+        let primes = vec![2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47];
+        let p_iter = PrimeIter::new();
+        for (p1, p2) in p_iter.zip(primes) {
+            println!("{}, {}", p1, p2);
+            assert_eq!(p1, p2);
         }
     }
 }
