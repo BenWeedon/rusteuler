@@ -1,5 +1,4 @@
 pub fn problem_5() -> Result<u64, String> {
-    #[allow(unreachable_code)]
     (20..)
         .find(|n| (2..21).all(|d| n % d == 0))
         .ok_or(String::from("This should never be reached."))
