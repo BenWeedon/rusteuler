@@ -1,3 +1,5 @@
+extern crate num_cpus;
+
 use std;
 use std::io::prelude::*;
 use std::sync::mpsc;
@@ -5,14 +7,14 @@ use std::thread;
 
 pub fn problem_1() -> Result<u64, String> {
     const UPPER_BOUND: u64 = 1000;
-    const MAX_THREADS: u64 = 5;
     let (tx, rx) = mpsc::channel();
 
-    for i in 0..MAX_THREADS {
+    let num_threads = num_cpus::get() as u64;
+    for i in 0..num_threads {
         let tx = tx.clone();
         thread::spawn(move || {
-            let start = (i * UPPER_BOUND) / MAX_THREADS;
-            let end = start + (UPPER_BOUND / MAX_THREADS);
+            let start = (i * UPPER_BOUND) / num_threads;
+            let end = start + (UPPER_BOUND / num_threads);
             for n in start..end {
                 if (n % 3 == 0) || (n % 5 == 0) {
                     if let Err(err) = tx.send(n) {
