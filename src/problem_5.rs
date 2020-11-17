@@ -1,4 +1,4 @@
-use utils;
+use crate::utils;
 
 pub fn problem_5() -> Result<u64, String> {
     const K: u64 = 20;

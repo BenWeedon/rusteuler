@@ -1,4 +1,4 @@
-use utils;
+use crate::utils;
 
 pub fn problem_4() -> Result<u64, String> {
     let mut largest = 0;

@@ -1,7 +1,8 @@
 [package]
 name = "rusteuler"
 version = "0.1.0"
-authors = ["Ben Weedon <ben.weedon@outlook.com>"]
+authors = ["Ben Weedon <ben@weedon.email>"]
+edition = "2018"
 
 [dependencies]
 num_cpus = "1.13.0"
