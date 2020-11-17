@@ -1,9 +1,9 @@
-use crate::utils;
+use crate::util;
 
 pub fn problem_5() -> Result<u64, String> {
     const K: u64 = 20;
     let limit = (K as f64).sqrt();
-    Ok(utils::PrimeIter::new()
+    Ok(util::PrimeIter::new()
         .take_while(|p| p <= &K)
         .map(|p| {
             let a = if p as f64 <= limit {
