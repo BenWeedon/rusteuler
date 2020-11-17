@@ -72,7 +72,7 @@ mod tests {
     #[test]
     fn is_palindromic_works() {
         let palindromes = vec![
-            0, 1, 9, 11, 55, 101, 111, 232, 5555, 5005, 6116, 70207, 10001
+            0, 1, 9, 11, 55, 101, 111, 232, 5555, 5005, 6116, 70207, 10001,
         ];
         for n in palindromes {
             assert!(is_palindromic(n));
