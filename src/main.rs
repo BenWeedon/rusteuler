@@ -1,5 +1,3 @@
-extern crate rusteuler;
-
 use std::env;
 use std::process;
 use std::time;

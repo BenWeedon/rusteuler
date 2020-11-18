@@ -1,6 +1,3 @@
-extern crate num_cpus;
-
-use std;
 use std::io::prelude::*;
 use std::sync::mpsc;
 use std::thread;

@@ -13,7 +13,7 @@ pub fn problem_5() -> Result<u64, String> {
             };
             p.pow(a as u32)
         })
-        .fold(1, |acc, n| acc * n))
+        .product())
 }
 
 #[cfg(test)]

@@ -21,8 +21,8 @@ pub fn is_palindromic(n: u64) -> bool {
     let num_digits = n.log10().floor() + 1.0;
     let mut i = 0_f64;
     while i < num_digits / 2.0 {
-        let first_digit = ((n / 10_f64.powf(num_digits - 1.0 - i)) as u64 % 10) as f64;
-        let last_digit = ((n / 10_f64.powf(i)) as u64 % 10) as f64;
+        let first_digit = ((n / 10_f64.powf(num_digits - 1.0 - i)) as u64 % 10) as u64;
+        let last_digit = ((n / 10_f64.powf(i)) as u64 % 10) as u64;
         if first_digit != last_digit {
             return false;
         }
