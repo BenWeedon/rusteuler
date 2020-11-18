@@ -1,6 +1,6 @@
 use crate::util;
 
-pub fn problem_4() -> Result<u64, String> {
+pub fn run() -> Result<u64, String> {
     let mut largest = 0;
     for x in 100..1000 {
         for y in 100..1000 {
@@ -18,7 +18,7 @@ mod tests {
     use super::*;
     #[test]
     fn it_works() {
-        let solution = problem_4();
+        let solution = run();
         let solution = solution.unwrap();
         assert_eq!(906609, solution);
     }

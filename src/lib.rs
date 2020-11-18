@@ -1,28 +1,36 @@
+mod util;
+
 use macros::get_problem_numbers;
 use paste::paste;
 
-macro_rules! declare_mods {
+macro_rules! declare_problem_mods {
     () => {
-        get_problem_numbers!(declare_mods!);
+        get_problem_numbers!(declare_problem_mods!{1});
     };
     ($($n:literal),+) => {
-        $(
-            paste! { mod [<problem_ $n>]; }
-        )+
+        paste! {
+            $(
+                mod [<problem_ $n>];
+            )+
+        }
     };
 }
 
-declare_mods!();
+macro_rules! match_problems {
+    ($problem_number:expr, $($n:literal),+) => {
+        paste! {
+            match $problem_number {
+                $(
+                    $n => [<problem_ $n>]::run(),
+                )+
+                _ => Err(format!("{} is not a valid problem number.", $problem_number)),
+            }
+        }
+    };
+}
 
-mod util;
+declare_problem_mods!();
 
 pub fn run_problem(problem_number: usize) -> Result<u64, String> {
-    match problem_number {
-        1 => problem_1::problem_1(),
-        2 => problem_2::problem_2(),
-        3 => problem_3::problem_3(),
-        4 => problem_4::problem_4(),
-        5 => problem_5::problem_5(),
-        _ => Err(format!("{} is not a valid problem number.", problem_number)),
-    }
+    get_problem_numbers!(match_problems!(problem_number, 1))
 }

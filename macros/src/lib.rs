@@ -11,8 +11,9 @@ pub fn get_problem_numbers(input: TokenStream) -> TokenStream {
         .map(|n| format!("{}", n))
         .collect::<Vec<String>>()
         .join(", ");
-    let syntax = format!("{}({});", input, numbers_string);
-    TokenStream::from_str(&syntax).unwrap()
+    let input_pattern = format!("{}", input);
+    let input_matched = input_pattern.replace("1", &numbers_string);
+    TokenStream::from_str(&input_matched).unwrap()
 }
 
 fn get_problem_numbers_fn(dir: &str) -> Result<Vec<usize>, Box<dyn error::Error>> {

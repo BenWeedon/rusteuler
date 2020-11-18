@@ -2,7 +2,7 @@ use std::io::prelude::*;
 use std::sync::mpsc;
 use std::thread;
 
-pub fn problem_1() -> Result<u64, String> {
+pub fn run() -> Result<u64, String> {
     const UPPER_BOUND: u64 = 1000;
     let (tx, rx) = mpsc::channel();
 
@@ -43,7 +43,7 @@ mod tests {
     use super::*;
     #[test]
     fn it_works() {
-        let solution = problem_1();
+        let solution = run();
         let solution = solution.unwrap();
         assert_eq!(233168, solution);
     }

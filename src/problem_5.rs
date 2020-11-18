@@ -1,6 +1,6 @@
 use crate::util;
 
-pub fn problem_5() -> Result<u64, String> {
+pub fn run() -> Result<u64, String> {
     const K: u64 = 20;
     let limit = (K as f64).sqrt();
     Ok(util::PrimeIter::new()
@@ -21,7 +21,7 @@ mod tests {
     use super::*;
     #[test]
     fn it_works() {
-        let solution = problem_5();
+        let solution = run();
         let solution = solution.unwrap();
         assert_eq!(232792560, solution);
     }
