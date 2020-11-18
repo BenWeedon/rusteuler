@@ -29,6 +29,7 @@ fn get_problem_numbers_fn(dir: &str) -> Result<Vec<usize>, Box<dyn error::Error>
         }
     }
 
+    numbers.sort_unstable();
     Ok(numbers)
 }
 
