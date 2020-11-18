@@ -3,6 +3,9 @@ rust:
   - stable
   - beta
   - nightly
+script:
+  - cargo test -p macros
+  - cargo test
 matrix:
   allow_failures:
     - rust: nightly

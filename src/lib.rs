@@ -1,10 +1,20 @@
-mod util;
+use macros::get_problem_numbers;
+use paste::paste;
 
-mod problem_1;
-mod problem_2;
-mod problem_3;
-mod problem_4;
-mod problem_5;
+macro_rules! declare_mods {
+    () => {
+        get_problem_numbers!(declare_mods!);
+    };
+    ($($n:literal),+) => {
+        $(
+            paste! { mod [<problem_ $n>]; }
+        )+
+    };
+}
+
+declare_mods!();
+
+mod util;
 
 pub fn run_problem(problem_number: usize) -> Result<u64, String> {
     match problem_number {

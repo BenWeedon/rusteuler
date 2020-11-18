@@ -4,5 +4,10 @@ version = "0.1.0"
 authors = ["Ben Weedon <ben@weedon.email>"]
 edition = "2018"
 
+[workspace]
+members = ["macros"]
+
 [dependencies]
+macros = { path = "macros" }
 num_cpus = "1.13.0"
+paste = "1.0.3"
