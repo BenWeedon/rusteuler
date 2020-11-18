@@ -1,5 +1,6 @@
-use crate::util;
+use {crate::util, macros::answer};
 
+#[answer(232792560)]
 pub fn run() -> Result<u64, String> {
     const K: u64 = 20;
     let limit = (K as f64).sqrt();
@@ -14,15 +15,4 @@ pub fn run() -> Result<u64, String> {
             p.pow(a as u32)
         })
         .product())
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    #[test]
-    fn it_works() {
-        let solution = run();
-        let solution = solution.unwrap();
-        assert_eq!(232792560, solution);
-    }
 }

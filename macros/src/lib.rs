@@ -16,6 +16,26 @@ pub fn get_problem_numbers(input: TokenStream) -> TokenStream {
     TokenStream::from_str(&input_matched).unwrap()
 }
 
+#[proc_macro_attribute]
+pub fn answer(attrs: TokenStream, input: TokenStream) -> TokenStream {
+    const TEST_STR: &str = r#"
+        #[cfg(test)]
+        mod tests {
+            use super::run;
+            #[test]
+            fn it_works() {
+                assert_eq!(run().unwrap(), <>);
+            }
+        }
+    "#;
+
+    let answer = format!("{}", attrs);
+    let test_output = TEST_STR.replace("<>", &answer);
+
+    let full_output = format!("{}", input) + &test_output;
+    TokenStream::from_str(&full_output).unwrap()
+}
+
 fn get_problem_numbers_fn(dir: &str) -> Result<Vec<usize>, Box<dyn error::Error>> {
     let mut numbers = vec![];
 

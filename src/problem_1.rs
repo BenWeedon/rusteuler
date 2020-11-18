@@ -1,7 +1,9 @@
-use std::io::prelude::*;
-use std::sync::mpsc;
-use std::thread;
+use {
+    macros::answer,
+    std::{io::Write, sync::mpsc, thread},
+};
 
+#[answer(233168)]
 pub fn run() -> Result<u64, String> {
     const UPPER_BOUND: u64 = 1000;
     let (tx, rx) = mpsc::channel();
@@ -36,15 +38,4 @@ pub fn run() -> Result<u64, String> {
         sum += val;
     }
     Ok(sum)
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    #[test]
-    fn it_works() {
-        let solution = run();
-        let solution = solution.unwrap();
-        assert_eq!(233168, solution);
-    }
 }

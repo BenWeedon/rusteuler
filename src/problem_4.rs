@@ -1,5 +1,6 @@
-use crate::util;
+use {crate::util, macros::answer};
 
+#[answer(906609)]
 pub fn run() -> Result<u64, String> {
     let mut largest = 0;
     for x in 100..1000 {
@@ -11,15 +12,4 @@ pub fn run() -> Result<u64, String> {
         }
     }
     Ok(largest)
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    #[test]
-    fn it_works() {
-        let solution = run();
-        let solution = solution.unwrap();
-        assert_eq!(906609, solution);
-    }
 }

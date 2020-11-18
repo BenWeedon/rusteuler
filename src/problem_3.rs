@@ -1,5 +1,6 @@
-use crate::util;
+use {crate::util, macros::answer};
 
+#[answer(6857)]
 pub fn run() -> Result<u64, String> {
     const N: u64 = 600851475143;
     for n in 1..N / 2 {
@@ -11,15 +12,4 @@ pub fn run() -> Result<u64, String> {
         }
     }
     Err(format!("Largest prime factor not found for number {}.", N))
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    #[test]
-    fn it_works() {
-        let solution = run();
-        let solution = solution.unwrap();
-        assert_eq!(6857, solution);
-    }
 }
