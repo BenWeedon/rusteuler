@@ -20,13 +20,6 @@ pub fn declare_problem_mods(input: TokenStream) -> TokenStream {
 pub fn match_problems(input: TokenStream) -> TokenStream {
     check_input_empty(input);
 
-    const MATCH_STR: &str = r#"
-        match problem_number {
-            <>
-            _ => Err(format!("{} is not a valid problem number.", problem_number)),
-        }
-    "#;
-
     let numbers = get_problem_numbers("src").unwrap();
     let match_cases = numbers
         .into_iter()
@@ -34,28 +27,35 @@ pub fn match_problems(input: TokenStream) -> TokenStream {
         .collect::<Vec<String>>()
         .join("\n");
 
-    let output = MATCH_STR.replace("<>", &match_cases);
+    let output = format!(
+        r#"
+            match problem_number {{
+                {}
+                _ => Err(format!("{{}} is not a valid problem number.", problem_number)),
+            }}
+        "#,
+        match_cases
+    );
     TokenStream::from_str(&output).unwrap()
 }
 
 #[proc_macro_attribute]
 pub fn answer(attrs: TokenStream, input: TokenStream) -> TokenStream {
-    const TEST_STR: &str = r#"
-        #[cfg(test)]
-        mod tests {
-            use super::run;
-            #[test]
-            fn it_works() {
-                assert_eq!(run().unwrap(), <>);
-            }
-        }
-    "#;
-
     let answer = format!("{}", attrs);
-    let test_output = TEST_STR.replace("<>", &answer);
-
-    let full_output = format!("{}", input) + &test_output;
-    TokenStream::from_str(&full_output).unwrap()
+    let output = format!(
+        r#"
+            #[cfg(test)]
+            mod tests {{
+                use super::run;
+                #[test]
+                fn it_works() {{
+                    assert_eq!(run().unwrap(), {});
+                }}
+            }}
+        {}"#,
+        answer, input
+    );
+    TokenStream::from_str(&output).unwrap()
 }
 
 fn check_input_empty(input: TokenStream) {
