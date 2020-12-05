@@ -10,7 +10,7 @@ pub fn declare_problem_mods(input: TokenStream) -> TokenStream {
     let numbers = get_problem_numbers("src").unwrap();
     let output = numbers
         .into_iter()
-        .map(|n| format!("mod problem_{};", n))
+        .map(|n| format!("pub mod problem_{};", n))
         .collect::<Vec<String>>()
         .join("\n");
     TokenStream::from_str(&output).unwrap()
@@ -35,25 +35,6 @@ pub fn match_problems(input: TokenStream) -> TokenStream {
             }}
         "#,
         match_cases
-    );
-    TokenStream::from_str(&output).unwrap()
-}
-
-#[proc_macro_attribute]
-pub fn answer(attrs: TokenStream, input: TokenStream) -> TokenStream {
-    let answer = format!("{}", attrs);
-    let output = format!(
-        r#"
-            #[cfg(test)]
-            mod tests {{
-                use super::run;
-                #[test]
-                fn it_works() {{
-                    assert_eq!(run().unwrap(), {});
-                }}
-            }}
-        #[doc(hidden)]{}"#,
-        answer, input
     );
     TokenStream::from_str(&output).unwrap()
 }

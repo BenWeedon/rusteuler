@@ -1,6 +1,18 @@
-use {crate::util, macros::answer};
+//! > The prime factors of 13195 are 5, 7, 13 and 29.
+//! >
+//! > What is the largest prime factor of the number 600851475143 ?
+//!
+//! This solution is currently very inefficient. It iterates through every
+//! factor of 600851475143 and checks if each one is prime. `is_prime` is also
+//! iterative, making this algorithm extremely slow.
+//!
+//! ```
+//! # let solution = rusteuler::problem_3::run().unwrap();
+//! assert_eq!(solution, 6857);
+//! ```
 
-#[answer(6857)]
+use crate::util;
+
 pub fn run() -> Result<u64, String> {
     const N: u64 = 600851475143;
     for n in 1..N / 2 {

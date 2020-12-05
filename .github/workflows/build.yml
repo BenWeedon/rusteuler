@@ -65,7 +65,7 @@ jobs:
       uses: actions-rs/cargo@v1
       with:
         command: doc
-        args: --no-deps --document-private-items
+        args: --no-deps
 
     - name: Publish the docs as an artifact
       uses: actions/upload-artifact@v2

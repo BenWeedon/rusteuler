@@ -1,9 +1,19 @@
-use {
-    macros::answer,
-    std::{io::Write, sync::mpsc, thread},
-};
+//! > If we list all the natural numbers below 10 that are multiples of 3 or 5,
+//! we get 3, 5, 6 and 9. The sum of these multiples is 23.
+//! >
+//! > Find the sum of all the multiples of 3 or 5 below 1000.
+//!
+//! This solution takes the brute force approach. In multiple threads, we
+//! iterate over all numbers between 0 and 1000 and check which are multiples
+//! of 3 or 5.
+//!
+//! ```
+//! # let solution = rusteuler::problem_1::run().unwrap();
+//! assert_eq!(solution, 233168);
+//! ```
 
-#[answer(233168)]
+use std::{io::Write, sync::mpsc, thread};
+
 pub fn run() -> Result<u64, String> {
     const UPPER_BOUND: u64 = 1000;
     let (tx, rx) = mpsc::channel();
