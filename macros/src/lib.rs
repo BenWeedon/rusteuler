@@ -52,7 +52,7 @@ pub fn answer(attrs: TokenStream, input: TokenStream) -> TokenStream {
                     assert_eq!(run().unwrap(), {});
                 }}
             }}
-        {}"#,
+        #[doc(hidden)]{}"#,
         answer, input
     );
     TokenStream::from_str(&output).unwrap()
