@@ -12,5 +12,20 @@ exceed four million, find the sum of the even-valued terms.</p>
 up all the even numbers along the way.</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">solution</span>, <span class="number">4613732</span>);</pre></div>
+<span class="kw">const</span> <span class="ident">MAX_VAL</span>: <span class="ident">u64</span> <span class="op">=</span> <span class="number">4_000_000</span>;
+<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">n1</span> <span class="op">=</span> <span class="number">1</span>;
+<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">n2</span> <span class="op">=</span> <span class="number">2</span>;
+<span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">sum</span> <span class="op">=</span> <span class="ident">n2</span>;
+<span class="kw">loop</span> {
+    <span class="kw">let</span> <span class="ident">n3</span> <span class="op">=</span> <span class="ident">n1</span> <span class="op">+</span> <span class="ident">n2</span>;
+    <span class="kw">if</span> <span class="ident">n3</span> <span class="op">&gt;</span> <span class="ident">MAX_VAL</span> {
+        <span class="kw">break</span>;
+    }
+    <span class="ident">sum</span> <span class="op">+</span><span class="op">=</span> <span class="kw">if</span> <span class="ident">n3</span> <span class="op">%</span> <span class="number">2</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> { <span class="ident">n3</span> } <span class="kw">else</span> { <span class="number">0</span> };
+    <span class="ident">n1</span> <span class="op">=</span> <span class="ident">n2</span>;
+    <span class="ident">n2</span> <span class="op">=</span> <span class="ident">n3</span>;
+}
+
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">sum</span>, <span class="number">4613732</span>);</pre></div>
+<p>Runs in around 0.0000005000 seconds</p>
 </div></section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "rusteuler";</script><script src="../../main.js"></script><script defer src="../../search-index.js"></script></body></html>

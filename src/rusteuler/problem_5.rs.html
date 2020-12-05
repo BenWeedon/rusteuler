@@ -38,6 +38,7 @@
 <span id="35">35</span>
 <span id="36">36</span>
 <span id="37">37</span>
+<span id="38">38</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! &gt; 2520 is the smallest number that can be divided by each of the numbers</span>
 <span class="doccomment">//! from 1 to 10 without any remainder.</span>
@@ -48,33 +49,34 @@
 <span class="doccomment">//! First off, we don&#39;t need to check all the numbers from 1 to 20: we just</span>
 <span class="doccomment">//! need to check the primes. This is because if the number is divisible by,</span>
 <span class="doccomment">//! say 3 and 2, we know prime factorization means it must be divisible by 6.</span>
-<span class="doccomment">//! We use [`util::PrimeIter`] to iterate over the primes.</span>
+<span class="doccomment">//! We use [`util::PrimeIter`](crate::util::PrimeIter) to iterate over the</span>
+<span class="doccomment">//! primes.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Honestly, I don&#39;t totally remember the details of this one. I&#39;ll add those</span>
 <span class="doccomment">//! when I remember.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```</span>
-<span class="doccomment">//! # let solution = rusteuler::problem_5::run().unwrap();</span>
+<span class="doccomment">//! # rusteuler::framework::run_solution(|| {</span>
+<span class="doccomment">//! use rusteuler::util;</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! const K: u64 = 20;</span>
+<span class="doccomment">//! let limit = (K as f64).sqrt();</span>
+<span class="doccomment">//! let solution = util::PrimeIter::new()</span>
+<span class="doccomment">//!     .take_while(|p| p &lt;= &amp;K)</span>
+<span class="doccomment">//!     .map(|p| {</span>
+<span class="doccomment">//!         let a = if p as f64 &lt;= limit {</span>
+<span class="doccomment">//!             (K as f64).log(p as f64).floor() as u64</span>
+<span class="doccomment">//!         } else {</span>
+<span class="doccomment">//!             1</span>
+<span class="doccomment">//!         };</span>
+<span class="doccomment">//!         p.pow(a as u32)</span>
+<span class="doccomment">//!     })</span>
+<span class="doccomment">//!     .product::&lt;u64&gt;();</span>
 <span class="doccomment">//! assert_eq!(solution, 232792560);</span>
+<span class="doccomment">//! # Ok(5)</span>
+<span class="doccomment">//! # }).unwrap();</span>
 <span class="doccomment">//! ```</span>
-
-<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">util</span>;
-
-<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">run</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">u64</span>, <span class="ident">String</span><span class="op">&gt;</span> {
-    <span class="kw">const</span> <span class="ident">K</span>: <span class="ident">u64</span> <span class="op">=</span> <span class="number">20</span>;
-    <span class="kw">let</span> <span class="ident">limit</span> <span class="op">=</span> (<span class="ident">K</span> <span class="kw">as</span> <span class="ident">f64</span>).<span class="ident">sqrt</span>();
-    <span class="prelude-val">Ok</span>(<span class="ident">util</span>::<span class="ident">PrimeIter</span>::<span class="ident">new</span>()
-        .<span class="ident">take_while</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span> <span class="op">&lt;</span><span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">K</span>)
-        .<span class="ident">map</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> {
-            <span class="kw">let</span> <span class="ident">a</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">p</span> <span class="kw">as</span> <span class="ident">f64</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">limit</span> {
-                (<span class="ident">K</span> <span class="kw">as</span> <span class="ident">f64</span>).<span class="ident">log</span>(<span class="ident">p</span> <span class="kw">as</span> <span class="ident">f64</span>).<span class="ident">floor</span>() <span class="kw">as</span> <span class="ident">u64</span>
-            } <span class="kw">else</span> {
-                <span class="number">1</span>
-            };
-            <span class="ident">p</span>.<span class="ident">pow</span>(<span class="ident">a</span> <span class="kw">as</span> <span class="ident">u32</span>)
-        })
-        .<span class="ident">product</span>())
-}
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ====TIME====</span>
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "rusteuler";</script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>

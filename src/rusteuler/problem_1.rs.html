@@ -52,7 +52,6 @@
 <span id="49">49</span>
 <span id="50">50</span>
 <span id="51">51</span>
-<span id="52">52</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! &gt; If we list all the natural numbers below 10 that are multiples of 3 or 5,</span>
 <span class="doccomment">//! we get 3, 5, 6 and 9. The sum of these multiples is 23.</span>
@@ -64,47 +63,46 @@
 <span class="doccomment">//! of 3 or 5.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```</span>
-<span class="doccomment">//! # let solution = rusteuler::problem_1::run().unwrap();</span>
-<span class="doccomment">//! assert_eq!(solution, 233168);</span>
+<span class="doccomment">//! # rusteuler::framework::run_solution(|| {</span>
+<span class="doccomment">//! use std::{io::Write, sync::mpsc, thread};</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! const UPPER_BOUND: u64 = 1000;</span>
+<span class="doccomment">//! let (tx, rx) = mpsc::channel();</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! let num_threads = num_cpus::get() as u64;</span>
+<span class="doccomment">//! for i in 0..num_threads {</span>
+<span class="doccomment">//!     let tx = tx.clone();</span>
+<span class="doccomment">//!     thread::spawn(move || {</span>
+<span class="doccomment">//!         let start = i * (UPPER_BOUND / num_threads);</span>
+<span class="doccomment">//!         let end = if i == num_threads - 1 {</span>
+<span class="doccomment">//!             // This is necessary to handle cases where UPPER_BOUND is not</span>
+<span class="doccomment">//!             // divisible by num_threads.</span>
+<span class="doccomment">//!             UPPER_BOUND</span>
+<span class="doccomment">//!         } else {</span>
+<span class="doccomment">//!             start + (UPPER_BOUND / num_threads)</span>
+<span class="doccomment">//!         };</span>
+<span class="doccomment">//!         for n in start..end {</span>
+<span class="doccomment">//!             if (n % 3 == 0) || (n % 5 == 0) {</span>
+<span class="doccomment">//!                 if let Err(err) = tx.send(n) {</span>
+<span class="doccomment">//!                     let mut stderr = std::io::stderr();</span>
+<span class="doccomment">//!                     writeln!(&amp;mut stderr, &quot;sending to channel failed: {}&quot;, err)</span>
+<span class="doccomment">//!                         .expect(&quot;could not write to stderr&quot;);</span>
+<span class="doccomment">//!                 }</span>
+<span class="doccomment">//!             }</span>
+<span class="doccomment">//!         }</span>
+<span class="doccomment">//!     });</span>
+<span class="doccomment">//! }</span>
+<span class="doccomment">//! drop(tx);</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! let mut sum = 0;</span>
+<span class="doccomment">//! for val in rx {</span>
+<span class="doccomment">//!     sum += val;</span>
+<span class="doccomment">//! }</span>
+<span class="doccomment">//! assert_eq!(sum, 233168);</span>
+<span class="doccomment">//! # Ok(1)</span>
+<span class="doccomment">//! # }).unwrap();</span>
 <span class="doccomment">//! ```</span>
-
-<span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">io</span>::<span class="ident">Write</span>, <span class="ident">sync</span>::<span class="ident">mpsc</span>, <span class="ident">thread</span>};
-
-<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">run</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">u64</span>, <span class="ident">String</span><span class="op">&gt;</span> {
-    <span class="kw">const</span> <span class="ident">UPPER_BOUND</span>: <span class="ident">u64</span> <span class="op">=</span> <span class="number">1000</span>;
-    <span class="kw">let</span> (<span class="ident">tx</span>, <span class="ident">rx</span>) <span class="op">=</span> <span class="ident">mpsc</span>::<span class="ident">channel</span>();
-
-    <span class="kw">let</span> <span class="ident">num_threads</span> <span class="op">=</span> <span class="ident">num_cpus</span>::<span class="ident">get</span>() <span class="kw">as</span> <span class="ident">u64</span>;
-    <span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">num_threads</span> {
-        <span class="kw">let</span> <span class="ident">tx</span> <span class="op">=</span> <span class="ident">tx</span>.<span class="ident">clone</span>();
-        <span class="ident">thread</span>::<span class="ident">spawn</span>(<span class="kw">move</span> <span class="op">|</span><span class="op">|</span> {
-            <span class="kw">let</span> <span class="ident">start</span> <span class="op">=</span> <span class="ident">i</span> <span class="op">*</span> (<span class="ident">UPPER_BOUND</span> <span class="op">/</span> <span class="ident">num_threads</span>);
-            <span class="kw">let</span> <span class="ident">end</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">i</span> <span class="op">=</span><span class="op">=</span> <span class="ident">num_threads</span> <span class="op">-</span> <span class="number">1</span> {
-                <span class="comment">// This is necessary to handle cases where UPPER_BOUND is not divisible by</span>
-                <span class="comment">// num_threads.</span>
-                <span class="ident">UPPER_BOUND</span>
-            } <span class="kw">else</span> {
-                <span class="ident">start</span> <span class="op">+</span> (<span class="ident">UPPER_BOUND</span> <span class="op">/</span> <span class="ident">num_threads</span>)
-            };
-            <span class="kw">for</span> <span class="ident">n</span> <span class="kw">in</span> <span class="ident">start</span>..<span class="ident">end</span> {
-                <span class="kw">if</span> (<span class="ident">n</span> <span class="op">%</span> <span class="number">3</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span>) <span class="op">|</span><span class="op">|</span> (<span class="ident">n</span> <span class="op">%</span> <span class="number">5</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span>) {
-                    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">err</span>) <span class="op">=</span> <span class="ident">tx</span>.<span class="ident">send</span>(<span class="ident">n</span>) {
-                        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">stderr</span> <span class="op">=</span> <span class="ident">std</span>::<span class="ident">io</span>::<span class="ident">stderr</span>();
-                        <span class="macro">writeln</span><span class="macro">!</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">stderr</span>, <span class="string">&quot;sending to channel failed: {}&quot;</span>, <span class="ident">err</span>)
-                            .<span class="ident">expect</span>(<span class="string">&quot;could not write to stderr&quot;</span>);
-                    }
-                }
-            }
-        });
-    }
-    <span class="ident">drop</span>(<span class="ident">tx</span>);
-
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">sum</span> <span class="op">=</span> <span class="number">0</span>;
-    <span class="kw">for</span> <span class="ident">val</span> <span class="kw">in</span> <span class="ident">rx</span> {
-        <span class="ident">sum</span> <span class="op">+</span><span class="op">=</span> <span class="ident">val</span>;
-    }
-    <span class="prelude-val">Ok</span>(<span class="ident">sum</span>)
-}
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ====TIME====</span>
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "rusteuler";</script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>

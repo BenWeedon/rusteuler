@@ -47,26 +47,26 @@
 <span class="doccomment">//! up all the even numbers along the way.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```</span>
-<span class="doccomment">//! # let solution = rusteuler::problem_2::run().unwrap();</span>
-<span class="doccomment">//! assert_eq!(solution, 4613732);</span>
+<span class="doccomment">//! # rusteuler::framework::run_solution(|| {</span>
+<span class="doccomment">//! const MAX_VAL: u64 = 4_000_000;</span>
+<span class="doccomment">//! let mut n1 = 1;</span>
+<span class="doccomment">//! let mut n2 = 2;</span>
+<span class="doccomment">//! let mut sum = n2;</span>
+<span class="doccomment">//! loop {</span>
+<span class="doccomment">//!     let n3 = n1 + n2;</span>
+<span class="doccomment">//!     if n3 &gt; MAX_VAL {</span>
+<span class="doccomment">//!         break;</span>
+<span class="doccomment">//!     }</span>
+<span class="doccomment">//!     sum += if n3 % 2 == 0 { n3 } else { 0 };</span>
+<span class="doccomment">//!     n1 = n2;</span>
+<span class="doccomment">//!     n2 = n3;</span>
+<span class="doccomment">//! }</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! assert_eq!(sum, 4613732);</span>
+<span class="doccomment">//! # Ok(2)</span>
+<span class="doccomment">//! # }).unwrap();</span>
 <span class="doccomment">//! ```</span>
-
-<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">run</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">u64</span>, <span class="ident">String</span><span class="op">&gt;</span> {
-    <span class="kw">const</span> <span class="ident">MAX_VAL</span>: <span class="ident">u64</span> <span class="op">=</span> <span class="number">4_000_000</span>;
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">n1</span> <span class="op">=</span> <span class="number">1</span>;
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">n2</span> <span class="op">=</span> <span class="number">2</span>;
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">sum</span> <span class="op">=</span> <span class="ident">n2</span>;
-    <span class="kw">loop</span> {
-        <span class="kw">let</span> <span class="ident">n3</span> <span class="op">=</span> <span class="ident">n1</span> <span class="op">+</span> <span class="ident">n2</span>;
-        <span class="kw">if</span> <span class="ident">n3</span> <span class="op">&gt;</span> <span class="ident">MAX_VAL</span> {
-            <span class="kw">break</span>;
-        }
-        <span class="ident">sum</span> <span class="op">+</span><span class="op">=</span> <span class="kw">if</span> <span class="ident">n3</span> <span class="op">%</span> <span class="number">2</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> { <span class="ident">n3</span> } <span class="kw">else</span> { <span class="number">0</span> };
-        <span class="ident">n1</span> <span class="op">=</span> <span class="ident">n2</span>;
-        <span class="ident">n2</span> <span class="op">=</span> <span class="ident">n3</span>;
-    }
-    <span class="prelude-val">Ok</span>(<span class="ident">sum</span>)
-}
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ====TIME====</span>
 </pre></div>
 </section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "rusteuler";</script><script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script><script defer src="../../search-index.js"></script></body></html>
