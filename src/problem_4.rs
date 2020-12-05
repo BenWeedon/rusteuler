@@ -4,8 +4,8 @@
 //! > Find the largest palindrome made from the product of two 3-digit numbers.
 //!
 //! This solution iterates over all pairs of three digit numbers. For each
-//! pair, it multiplies them and checks if the product is a palindrome. We
-//! return the largest one.
+//! pair, it multiplies them and checks if the product is a palindrome using
+//! [`util::is_palindromic`]. We return the largest one.
 //!
 //! ```
 //! # let solution = rusteuler::problem_4::run().unwrap();

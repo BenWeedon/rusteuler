@@ -7,6 +7,7 @@
 //! First off, we don't need to check all the numbers from 1 to 20: we just
 //! need to check the primes. This is because if the number is divisible by,
 //! say 3 and 2, we know prime factorization means it must be divisible by 6.
+//! We use [`util::PrimeIter`] to iterate over the primes.
 //!
 //! Honestly, I don't totally remember the details of this one. I'll add those
 //! when I remember.

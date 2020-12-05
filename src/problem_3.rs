@@ -3,8 +3,8 @@
 //! > What is the largest prime factor of the number 600851475143 ?
 //!
 //! This solution is currently very inefficient. It iterates through every
-//! factor of 600851475143 and checks if each one is prime. `is_prime` is also
-//! iterative, making this algorithm extremely slow.
+//! factor of 600851475143 and checks if each one is prime. [`util::is_prime`]
+//! is also iterative, making this algorithm extremely slow.
 //!
 //! ```
 //! # let solution = rusteuler::problem_3::run().unwrap();
