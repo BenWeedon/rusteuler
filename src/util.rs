@@ -1,36 +1,52 @@
+//! Utilities that can be shared across the solutions.
+
+/// If `n` is less than or equal to 1, it isn't prime. If it's in the range
+/// `(1, 3]`, it is prime. If it's divisible by 2 or 3, it's not prime.
+///
+/// Finally, if none of those checks tell us anything, we iterate from 5 to
+/// `sqrt(n)` in increments of 6 (since the 2/3 divisibility rule mentioned
+/// above means primes can only occur once every 6 numbers). If `n` is
+/// divisible by the number, or it's divisible by the number plus 2, we return
+/// false. If we make it through the whole iteration without finding any
+/// divisors, we return true.
 pub fn is_prime(n: u64) -> bool {
     if n <= 1 {
-        return false;
+        false
     } else if n <= 3 {
-        return true;
+        true
     } else if n % 2 == 0 || n % 3 == 0 {
-        return false;
-    }
-    let mut i = 5;
-    while i * i <= n {
-        if n % i == 0 || n % (i + 2) == 0 {
-            return false;
+        false
+    } else {
+        let max = (n as f64).sqrt().floor() as u64;
+        for i in (5..=max).step_by(6) {
+            if n % i == 0 || n % (i + 2) == 0 {
+                return false;
+            }
         }
-        i += 6;
+        true
     }
-    true
 }
 
+/// We use log base 10 to determine the number of digits in the number. We then
+/// iterate over the first half of the digits. We get the current digit as well
+/// as the corresponding mirrored, digit, and check if they're equal.
 pub fn is_palindromic(n: u64) -> bool {
     let n: f64 = n as f64;
     let num_digits = n.log10().floor() + 1.0;
-    let mut i = 0_f64;
-    while i < num_digits / 2.0 {
+    let middle = (num_digits / 2.0).floor() as u64;
+    for i in 0..middle {
+        let i = i as f64;
         let first_digit = ((n / 10_f64.powf(num_digits - 1.0 - i)) as u64 % 10) as u64;
         let last_digit = ((n / 10_f64.powf(i)) as u64 % 10) as u64;
         if first_digit != last_digit {
             return false;
         }
-        i += 1.0;
     }
     true
 }
 
+/// An iterator which iterates over all primes by simply incrementing an
+/// internal count and calling [`is_prime`] to check if it should be returned.
 pub struct PrimeIter {
     curr_prime: u64,
 }
@@ -43,12 +59,12 @@ impl Iterator for PrimeIter {
     type Item = u64;
 
     fn next(&mut self) -> Option<Self::Item> {
-        loop {
+        while !is_prime(self.curr_prime) {
             self.curr_prime += 1;
-            if is_prime(self.curr_prime) {
-                return Some(self.curr_prime);
-            }
         }
+        let result = Some(self.curr_prime);
+        self.curr_prime += 1;
+        result
     }
 }
 

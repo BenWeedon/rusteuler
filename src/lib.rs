@@ -1,6 +1,6 @@
 use macros::{declare_problem_mods, match_problems};
 
-mod util;
+pub mod util;
 
 declare_problem_mods!();
 
