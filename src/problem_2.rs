@@ -14,6 +14,7 @@
 //! assert_eq!(solution, 4613732);
 //! ```
 
+#[doc(hidden)]
 pub fn run() -> Result<u64, String> {
     const MAX_VAL: u64 = 4_000_000;
     let mut n1 = 1;

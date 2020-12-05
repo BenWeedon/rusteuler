@@ -14,6 +14,7 @@
 
 use std::{io::Write, sync::mpsc, thread};
 
+#[doc(hidden)]
 pub fn run() -> Result<u64, String> {
     const UPPER_BOUND: u64 = 1000;
     let (tx, rx) = mpsc::channel();

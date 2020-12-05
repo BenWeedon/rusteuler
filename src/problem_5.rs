@@ -18,6 +18,7 @@
 
 use crate::util;
 
+#[doc(hidden)]
 pub fn run() -> Result<u64, String> {
     const K: u64 = 20;
     let limit = (K as f64).sqrt();

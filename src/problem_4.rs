@@ -14,6 +14,7 @@
 
 use crate::util;
 
+#[doc(hidden)]
 pub fn run() -> Result<u64, String> {
     let mut largest = 0;
     for x in 100..1000 {

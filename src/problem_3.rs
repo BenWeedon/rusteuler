@@ -13,6 +13,7 @@
 
 use crate::util;
 
+#[doc(hidden)]
 pub fn run() -> Result<u64, String> {
     const N: u64 = 600851475143;
     for n in 1..N / 2 {
