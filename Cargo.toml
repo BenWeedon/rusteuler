@@ -3,6 +3,7 @@ name = "rusteuler"
 version = "0.1.0"
 authors = ["Ben Weedon <ben@weedon.email>"]
 edition = "2018"
+documentation = "https://binyomen.github.io/rusteuler/rusteuler/index.html"
 
 [workspace]
 members = ["macros"]
