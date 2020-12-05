@@ -23,7 +23,7 @@ jobs:
       with:
         profile: minimal
         toolchain: ${{ matrix.rust }}
-        components: rustfmt, clippy
+        components: clippy
         override: true
 
     - name: Debug build
@@ -49,6 +49,19 @@ jobs:
       with:
         command: test
 
+  check-format:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install Nightly
+      uses: actions-rs/toolchain@v1
+      with:
+        profile: minimal
+        toolchain: nightly
+        components: rustfmt
+        override: true
+
     - name: Check formatting
       uses: actions-rs/cargo@v1
       with:
@@ -61,11 +74,21 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Generate docs
+    - name: Install Stable
+      uses: actions-rs/toolchain@v1
+      with:
+        profile: minimal
+        toolchain: stable
+        override: true
+
+    - name: Generate runtimes from doctests
       uses: actions-rs/cargo@v1
       with:
-        command: doc
-        args: --no-deps
+        command: test
+        args: --release --doc
+
+    - name: Generate docs
+      run: ./createDocs.ps1
 
     - name: Publish the docs as an artifact
       uses: actions/upload-artifact@v2
@@ -73,7 +96,7 @@ jobs:
         name: docs
         path: target/doc
 
-    - name: Publish the docs
+    - name: Publish the docs to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}

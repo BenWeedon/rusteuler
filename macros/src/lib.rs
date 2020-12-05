@@ -16,29 +16,6 @@ pub fn declare_problem_mods(input: TokenStream) -> TokenStream {
     TokenStream::from_str(&output).unwrap()
 }
 
-#[proc_macro]
-pub fn match_problems(input: TokenStream) -> TokenStream {
-    check_input_empty(input);
-
-    let numbers = get_problem_numbers("src").unwrap();
-    let match_cases = numbers
-        .into_iter()
-        .map(|n| format!("{n} => problem_{n}::run(),", n = n))
-        .collect::<Vec<String>>()
-        .join("\n");
-
-    let output = format!(
-        r#"
-            match problem_number {{
-                {}
-                _ => Err(format!("{{}} is not a valid problem number.", problem_number)),
-            }}
-        "#,
-        match_cases
-    );
-    TokenStream::from_str(&output).unwrap()
-}
-
 fn check_input_empty(input: TokenStream) {
     if !input.is_empty() {
         panic!("This macro does not take any input");

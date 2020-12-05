@@ -5,25 +5,25 @@
 //!
 //! This solution iterates over all pairs of three digit numbers. For each
 //! pair, it multiplies them and checks if the product is a palindrome using
-//! [`util::is_palindromic`]. We return the largest one.
+//! [`util::is_palindromic`](crate::util::is_palindromic). We return the
+//! largest one.
 //!
 //! ```
-//! # let solution = rusteuler::problem_4::run().unwrap();
-//! assert_eq!(solution, 906609);
+//! # rusteuler::framework::run_solution(|| {
+//! use rusteuler::util;
+//!
+//! let mut largest = 0;
+//! for x in 100..1000 {
+//!     for y in 100..1000 {
+//!         let product = x * y;
+//!         if product > largest && util::is_palindromic(product) {
+//!             largest = product;
+//!         }
+//!     }
+//! }
+//! assert_eq!(largest, 906609);
+//! # Ok(4)
+//! # }).unwrap();
 //! ```
-
-use crate::util;
-
-#[doc(hidden)]
-pub fn run() -> Result<u64, String> {
-    let mut largest = 0;
-    for x in 100..1000 {
-        for y in 100..1000 {
-            let product = x * y;
-            if product > largest && util::is_palindromic(product) {
-                largest = product;
-            }
-        }
-    }
-    Ok(largest)
-}
+//!
+//! ====TIME====

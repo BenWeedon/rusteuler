@@ -7,31 +7,32 @@
 //! First off, we don't need to check all the numbers from 1 to 20: we just
 //! need to check the primes. This is because if the number is divisible by,
 //! say 3 and 2, we know prime factorization means it must be divisible by 6.
-//! We use [`util::PrimeIter`] to iterate over the primes.
+//! We use [`util::PrimeIter`](crate::util::PrimeIter) to iterate over the
+//! primes.
 //!
 //! Honestly, I don't totally remember the details of this one. I'll add those
 //! when I remember.
 //!
 //! ```
-//! # let solution = rusteuler::problem_5::run().unwrap();
+//! # rusteuler::framework::run_solution(|| {
+//! use rusteuler::util;
+//!
+//! const K: u64 = 20;
+//! let limit = (K as f64).sqrt();
+//! let solution = util::PrimeIter::new()
+//!     .take_while(|p| p <= &K)
+//!     .map(|p| {
+//!         let a = if p as f64 <= limit {
+//!             (K as f64).log(p as f64).floor() as u64
+//!         } else {
+//!             1
+//!         };
+//!         p.pow(a as u32)
+//!     })
+//!     .product::<u64>();
 //! assert_eq!(solution, 232792560);
+//! # Ok(5)
+//! # }).unwrap();
 //! ```
-
-use crate::util;
-
-#[doc(hidden)]
-pub fn run() -> Result<u64, String> {
-    const K: u64 = 20;
-    let limit = (K as f64).sqrt();
-    Ok(util::PrimeIter::new()
-        .take_while(|p| p <= &K)
-        .map(|p| {
-            let a = if p as f64 <= limit {
-                (K as f64).log(p as f64).floor() as u64
-            } else {
-                1
-            };
-            p.pow(a as u32)
-        })
-        .product())
-}
+//!
+//! ====TIME====
