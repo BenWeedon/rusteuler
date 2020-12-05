@@ -37,6 +37,7 @@
 <span id="34">34</span>
 <span id="35">35</span>
 <span id="36">36</span>
+<span id="37">37</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! &gt; 2520 is the smallest number that can be divided by each of the numbers</span>
 <span class="doccomment">//! from 1 to 10 without any remainder.</span>
@@ -47,6 +48,7 @@
 <span class="doccomment">//! First off, we don&#39;t need to check all the numbers from 1 to 20: we just</span>
 <span class="doccomment">//! need to check the primes. This is because if the number is divisible by,</span>
 <span class="doccomment">//! say 3 and 2, we know prime factorization means it must be divisible by 6.</span>
+<span class="doccomment">//! We use [`util::PrimeIter`] to iterate over the primes.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Honestly, I don&#39;t totally remember the details of this one. I&#39;ll add those</span>
 <span class="doccomment">//! when I remember.</span>

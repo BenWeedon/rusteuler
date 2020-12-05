@@ -7,8 +7,8 @@ made from the product of two 2-digit numbers is 9009 = 91 × 99.</p>
 <p>Find the largest palindrome made from the product of two 3-digit numbers.</p>
 </blockquote>
 <p>This solution iterates over all pairs of three digit numbers. For each
-pair, it multiplies them and checks if the product is a palindrome. We
-return the largest one.</p>
+pair, it multiplies them and checks if the product is a palindrome using
+<a href="../../rusteuler/util/fn.is_palindromic.html" title="util::is_palindromic"><code>util::is_palindromic</code></a>. We return the largest one.</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">solution</span>, <span class="number">906609</span>);</pre></div>
