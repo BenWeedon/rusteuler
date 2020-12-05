@@ -55,6 +55,11 @@ impl PrimeIter {
         PrimeIter { curr_prime: 1 }
     }
 }
+impl Default for PrimeIter {
+    fn default() -> Self {
+        Self::new()
+    }
+}
 impl Iterator for PrimeIter {
     type Item = u64;
 
