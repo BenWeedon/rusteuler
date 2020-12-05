@@ -36,6 +36,7 @@
 <span id="33">33</span>
 <span id="34">34</span>
 <span id="35">35</span>
+<span id="36">36</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! &gt; 2520 is the smallest number that can be divided by each of the numbers</span>
 <span class="doccomment">//! from 1 to 10 without any remainder.</span>
@@ -57,6 +58,7 @@
 
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">util</span>;
 
+<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">run</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">u64</span>, <span class="ident">String</span><span class="op">&gt;</span> {
     <span class="kw">const</span> <span class="ident">K</span>: <span class="ident">u64</span> <span class="op">=</span> <span class="number">20</span>;
     <span class="kw">let</span> <span class="ident">limit</span> <span class="op">=</span> (<span class="ident">K</span> <span class="kw">as</span> <span class="ident">f64</span>).<span class="ident">sqrt</span>();

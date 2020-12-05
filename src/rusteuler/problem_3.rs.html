@@ -28,6 +28,7 @@
 <span id="25">25</span>
 <span id="26">26</span>
 <span id="27">27</span>
+<span id="28">28</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! &gt; The prime factors of 13195 are 5, 7, 13 and 29.</span>
 <span class="doccomment">//! &gt;</span>
@@ -44,6 +45,7 @@
 
 <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">util</span>;
 
+<span class="attribute">#[<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">run</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">u64</span>, <span class="ident">String</span><span class="op">&gt;</span> {
     <span class="kw">const</span> <span class="ident">N</span>: <span class="ident">u64</span> <span class="op">=</span> <span class="number">600851475143</span>;
     <span class="kw">for</span> <span class="ident">n</span> <span class="kw">in</span> <span class="number">1</span>..<span class="ident">N</span> <span class="op">/</span> <span class="number">2</span> {
