@@ -51,8 +51,8 @@ pub struct PrimeIter {
     curr_prime: u64,
 }
 impl PrimeIter {
-    pub fn new() -> PrimeIter {
-        PrimeIter { curr_prime: 1 }
+    pub fn new() -> Self {
+        Self { curr_prime: 1 }
     }
 }
 impl Default for PrimeIter {
