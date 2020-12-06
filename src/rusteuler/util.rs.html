@@ -118,6 +118,10 @@
 <span id="115">115</span>
 <span id="116">116</span>
 <span id="117">117</span>
+<span id="118">118</span>
+<span id="119">119</span>
+<span id="120">120</span>
+<span id="121">121</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Utilities that can be shared across the solutions.</span>
 
@@ -172,8 +176,8 @@
     <span class="ident">curr_prime</span>: <span class="ident">u64</span>,
 }
 <span class="kw">impl</span> <span class="ident">PrimeIter</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">PrimeIter</span> {
-        <span class="ident">PrimeIter</span> { <span class="ident">curr_prime</span>: <span class="number">1</span> }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="self">Self</span> { <span class="ident">curr_prime</span>: <span class="number">1</span> }
     }
 }
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">PrimeIter</span> {
@@ -202,11 +206,13 @@
     <span class="kw">fn</span> <span class="ident">is_prime_works</span>() {
         <span class="kw">let</span> <span class="ident">primes</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">13</span>, <span class="number">17</span>, <span class="number">2521</span>, <span class="number">6089</span>, <span class="number">7919</span>];
         <span class="kw">for</span> <span class="ident">n</span> <span class="kw">in</span> <span class="ident">primes</span> {
+            <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">n</span>);
             <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">is_prime</span>(<span class="ident">n</span>));
         }
 
         <span class="kw">let</span> <span class="ident">non_primes</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">27</span>, <span class="number">3973</span>, <span class="number">7249</span>];
         <span class="kw">for</span> <span class="ident">n</span> <span class="kw">in</span> <span class="ident">non_primes</span> {
+            <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">n</span>);
             <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">is_prime</span>(<span class="ident">n</span>));
         }
     }
@@ -217,11 +223,13 @@
             <span class="number">0</span>, <span class="number">1</span>, <span class="number">9</span>, <span class="number">11</span>, <span class="number">55</span>, <span class="number">101</span>, <span class="number">111</span>, <span class="number">232</span>, <span class="number">5555</span>, <span class="number">5005</span>, <span class="number">6116</span>, <span class="number">70207</span>, <span class="number">10001</span>,
         ];
         <span class="kw">for</span> <span class="ident">n</span> <span class="kw">in</span> <span class="ident">palindromes</span> {
+            <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">n</span>);
             <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">is_palindromic</span>(<span class="ident">n</span>));
         }
 
         <span class="kw">let</span> <span class="ident">non_palindromes</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="number">12</span>, <span class="number">56</span>, <span class="number">72</span>, <span class="number">122</span>, <span class="number">311</span>, <span class="number">123</span>, <span class="number">1234</span>, <span class="number">5455</span>, <span class="number">71207</span>];
         <span class="kw">for</span> <span class="ident">n</span> <span class="kw">in</span> <span class="ident">non_palindromes</span> {
+            <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">n</span>);
             <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">is_palindromic</span>(<span class="ident">n</span>));
         }
     }
