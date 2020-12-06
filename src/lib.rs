@@ -1,3 +1,5 @@
+#![doc(test(attr(deny(warnings))))]
+
 use macros::declare_problem_mods;
 
 pub mod framework;
