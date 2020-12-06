@@ -81,11 +81,13 @@ mod tests {
     fn is_prime_works() {
         let primes = vec![2, 3, 5, 7, 11, 13, 17, 2521, 6089, 7919];
         for n in primes {
+            println!("{}", n);
             assert!(is_prime(n));
         }
 
         let non_primes = vec![0, 1, 4, 6, 8, 9, 27, 3973, 7249];
         for n in non_primes {
+            println!("{}", n);
             assert!(!is_prime(n));
         }
     }
@@ -96,11 +98,13 @@ mod tests {
             0, 1, 9, 11, 55, 101, 111, 232, 5555, 5005, 6116, 70207, 10001,
         ];
         for n in palindromes {
+            println!("{}", n);
             assert!(is_palindromic(n));
         }
 
         let non_palindromes = vec![12, 56, 72, 122, 311, 123, 1234, 5455, 71207];
         for n in non_palindromes {
+            println!("{}", n);
             assert!(!is_palindromic(n));
         }
     }
