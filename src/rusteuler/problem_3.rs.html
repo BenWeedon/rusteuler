@@ -31,31 +31,51 @@
 <span id="28">28</span>
 <span id="29">29</span>
 <span id="30">30</span>
+<span id="31">31</span>
+<span id="32">32</span>
+<span id="33">33</span>
+<span id="34">34</span>
+<span id="35">35</span>
+<span id="36">36</span>
+<span id="37">37</span>
+<span id="38">38</span>
+<span id="39">39</span>
+<span id="40">40</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! &gt; The prime factors of 13195 are 5, 7, 13 and 29.</span>
 <span class="doccomment">//! &gt;</span>
 <span class="doccomment">//! &gt; What is the largest prime factor of the number 600851475143 ?</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! This solution is currently very inefficient. It iterates through every</span>
-<span class="doccomment">//! factor of 600851475143 and checks if each one is prime.</span>
-<span class="doccomment">//! [`util::is_prime`](crate::util::is_prime) is also iterative, making this</span>
-<span class="doccomment">//! algorithm extremely slow.</span>
+<span class="doccomment">//! For this solution, we find all the factors of 600851475143. We iterate up</span>
+<span class="doccomment">//! until its square root, and for each number test both it and its other</span>
+<span class="doccomment">//! associated factor. We test the factors by checking if they&#39;re prime using</span>
+<span class="doccomment">//! [`util::is_prime`](crate::util::is_prime) and then checking if they&#39;re</span>
+<span class="doccomment">//! larger than our current largest factor.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! This is based off one of the solutions at</span>
+<span class="doccomment">//! https://www.mathblog.dk/project-euler-problem-3/.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//! # rusteuler::framework::run_solution(3, || {</span>
 <span class="doccomment">//! use rusteuler::util;</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! const N: u64 = 600851475143;</span>
+<span class="doccomment">//! let n_sqrt = (N as f64).sqrt() as u64;</span>
 <span class="doccomment">//! let mut solution = 0;</span>
-<span class="doccomment">//! for n in 1..N / 2 {</span>
-<span class="doccomment">//!     if N % n == 0 {</span>
-<span class="doccomment">//!         let factor = N / n;</span>
-<span class="doccomment">//!         if util::is_prime(factor) {</span>
-<span class="doccomment">//!             solution = factor;</span>
-<span class="doccomment">//!             break;</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! for i in 2..n_sqrt {</span>
+<span class="doccomment">//!     if N % i == 0 {</span>
+<span class="doccomment">//!         let lower_divisor = i;</span>
+<span class="doccomment">//!         let higher_divisor = N / i;</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//!         if util::is_prime(higher_divisor) &amp;&amp; higher_divisor &gt; solution {</span>
+<span class="doccomment">//!             solution = higher_divisor;</span>
+<span class="doccomment">//!         } else if util::is_prime(lower_divisor) &amp;&amp; lower_divisor &gt; solution {</span>
+<span class="doccomment">//!             solution = lower_divisor;</span>
 <span class="doccomment">//!         }</span>
 <span class="doccomment">//!     }</span>
 <span class="doccomment">//! }</span>
+<span class="doccomment">//!</span>
 <span class="doccomment">//! assert_eq!(solution, 6857);</span>
 <span class="doccomment">//! # Ok(())</span>
 <span class="doccomment">//! # }).unwrap();</span>
