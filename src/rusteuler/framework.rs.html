@@ -26,18 +26,20 @@
 <span id="23">23</span>
 <span id="24">24</span>
 <span id="25">25</span>
+<span id="26">26</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="attribute">#![<span class="ident">doc</span>(<span class="ident">hidden</span>)]</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">error</span>, <span class="ident">fs</span>::<span class="ident">File</span>, <span class="ident">io</span>::<span class="ident">Write</span>, <span class="ident">time</span>};
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">run_solution</span><span class="op">&lt;</span><span class="ident">S</span>: <span class="ident">FnOnce</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">u16</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">error</span>::<span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>(
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">run_solution</span><span class="op">&lt;</span><span class="ident">S</span>: <span class="ident">FnOnce</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">error</span>::<span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>(
+    <span class="ident">problem_number</span>: <span class="ident">u16</span>,
     <span class="ident">solution</span>: <span class="ident">S</span>,
 ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">dyn</span> <span class="ident">error</span>::<span class="ident">Error</span><span class="op">&gt;</span><span class="op">&gt;</span> {
     <span class="comment">// start timing performance</span>
     <span class="kw">let</span> <span class="ident">start_time</span> <span class="op">=</span> <span class="ident">time</span>::<span class="ident">SystemTime</span>::<span class="ident">now</span>();
 
-    <span class="kw">let</span> <span class="ident">problem_number</span> <span class="op">=</span> <span class="ident">solution</span>()<span class="question-mark">?</span>;
+    <span class="ident">solution</span>()<span class="question-mark">?</span>;
 
     <span class="comment">// get the elapsed time</span>
     <span class="kw">let</span> <span class="ident">elapsed_time</span> <span class="op">=</span> <span class="ident">start_time</span>.<span class="ident">elapsed</span>()<span class="question-mark">?</span>;

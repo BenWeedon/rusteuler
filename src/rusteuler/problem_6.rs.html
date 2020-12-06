@@ -53,11 +53,11 @@
 <span class="doccomment">//! the square of the sum from 1 to 100, and subtract them.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```</span>
-<span class="doccomment">//! # rusteuler::framework::run_solution(|| {</span>
+<span class="doccomment">//! # rusteuler::framework::run_solution(6, || {</span>
 <span class="doccomment">//! let sum_of_squares = (1..=100).map(|n: u64| n.pow(2)).sum::&lt;u64&gt;();</span>
 <span class="doccomment">//! let square_of_sum = (1..=100).sum::&lt;u64&gt;().pow(2);</span>
 <span class="doccomment">//! assert_eq!(square_of_sum - sum_of_squares, 25164150);</span>
-<span class="doccomment">//! # Ok(6)</span>
+<span class="doccomment">//! # Ok(())</span>
 <span class="doccomment">//! # }).unwrap();</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//!</span>
