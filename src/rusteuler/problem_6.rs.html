@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `src/problem_3.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>problem_3.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="stylesheet" type="text/css" href="../../theme.css"><link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `src/problem_6.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>problem_6.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="stylesheet" type="text/css" href="../../theme.css"><link rel="icon" type="image/svg+xml" href="../../favicon.svg">
 <link rel="alternate icon" type="image/png" href="../../favicon-16x16.png">
 <link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../rusteuler/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><span class="help-button">?</span>
                 <a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1"> 1</span>
@@ -32,32 +32,32 @@
 <span id="29">29</span>
 <span id="30">30</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="doccomment">//! &gt; The prime factors of 13195 are 5, 7, 13 and 29.</span>
+<span class="doccomment">//! &gt; The sum of the squares of the first ten natural numbers is,</span>
 <span class="doccomment">//! &gt;</span>
-<span class="doccomment">//! &gt; What is the largest prime factor of the number 600851475143 ?</span>
+<span class="doccomment">//! &gt; ![1 squared plus 2 squared plus ellipsis plus 10 squared equals</span>
+<span class="doccomment">//! 385](problem_6_1.svg)</span>
+<span class="doccomment">//! &gt;</span>
+<span class="doccomment">//! &gt; The square of the sum of the first ten natural numbers is,</span>
+<span class="doccomment">//! &gt;</span>
+<span class="doccomment">//! &gt; ![left-parenthesis 1 plus 2 plus ellipsis plus 10 right-parenthesis</span>
+<span class="doccomment">//! squared equals 55 squared equals 3025](problem_6_2.svg)</span>
+<span class="doccomment">//! &gt;</span>
+<span class="doccomment">//! &gt; Hence the difference between the sum of the squares of the first ten</span>
+<span class="doccomment">//! natural numbers and the square of the sum is ![3025 minus 385 equals</span>
+<span class="doccomment">//! 2640](problem_6_3.svg).</span>
+<span class="doccomment">//! &gt;</span>
+<span class="doccomment">//! &gt; Find the difference between the sum of the squares of the first one</span>
+<span class="doccomment">//! hundred natural numbers and the square of the sum.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! This solution is currently very inefficient. It iterates through every</span>
-<span class="doccomment">//! factor of 600851475143 and checks if each one is prime.</span>
-<span class="doccomment">//! [`util::is_prime`](crate::util::is_prime) is also iterative, making this</span>
-<span class="doccomment">//! algorithm extremely slow.</span>
+<span class="doccomment">//! For this problem, I simply calculate the sum of squares from 1 to 100 and</span>
+<span class="doccomment">//! the square of the sum from 1 to 100, and subtract them.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//! # rusteuler::framework::run_solution(|| {</span>
-<span class="doccomment">//! use rusteuler::util;</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! const N: u64 = 600851475143;</span>
-<span class="doccomment">//! let mut solution = 0;</span>
-<span class="doccomment">//! for n in 1..N / 2 {</span>
-<span class="doccomment">//!     if N % n == 0 {</span>
-<span class="doccomment">//!         let factor = N / n;</span>
-<span class="doccomment">//!         if util::is_prime(factor) {</span>
-<span class="doccomment">//!             solution = factor;</span>
-<span class="doccomment">//!             break;</span>
-<span class="doccomment">//!         }</span>
-<span class="doccomment">//!     }</span>
-<span class="doccomment">//! }</span>
-<span class="doccomment">//! assert_eq!(solution, 6857);</span>
-<span class="doccomment">//! # Ok(3)</span>
+<span class="doccomment">//! let sum_of_squares = (1..=100).map(|n: u64| n.pow(2)).sum::&lt;u64&gt;();</span>
+<span class="doccomment">//! let square_of_sum = (1..=100).sum::&lt;u64&gt;().pow(2);</span>
+<span class="doccomment">//! assert_eq!(square_of_sum - sum_of_squares, 25164150);</span>
+<span class="doccomment">//! # Ok(6)</span>
 <span class="doccomment">//! # }).unwrap();</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//!</span>
