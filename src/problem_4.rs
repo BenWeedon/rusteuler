@@ -9,7 +9,7 @@
 //! largest one.
 //!
 //! ```
-//! # rusteuler::framework::run_solution(|| {
+//! # rusteuler::framework::run_solution(4, || {
 //! use rusteuler::util;
 //!
 //! let mut largest = 0;
@@ -22,7 +22,7 @@
 //!     }
 //! }
 //! assert_eq!(largest, 906609);
-//! # Ok(4)
+//! # Ok(())
 //! # }).unwrap();
 //! ```
 //!

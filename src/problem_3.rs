@@ -8,7 +8,7 @@
 //! algorithm extremely slow.
 //!
 //! ```
-//! # rusteuler::framework::run_solution(|| {
+//! # rusteuler::framework::run_solution(3, || {
 //! use rusteuler::util;
 //!
 //! const N: u64 = 600851475143;
@@ -23,7 +23,7 @@
 //!     }
 //! }
 //! assert_eq!(solution, 6857);
-//! # Ok(3)
+//! # Ok(())
 //! # }).unwrap();
 //! ```
 //!

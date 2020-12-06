@@ -14,7 +14,7 @@
 //! when I remember.
 //!
 //! ```
-//! # rusteuler::framework::run_solution(|| {
+//! # rusteuler::framework::run_solution(5, || {
 //! use rusteuler::util;
 //!
 //! const K: u64 = 20;
@@ -31,7 +31,7 @@
 //!     })
 //!     .product::<u64>();
 //! assert_eq!(solution, 232792560);
-//! # Ok(5)
+//! # Ok(())
 //! # }).unwrap();
 //! ```
 //!

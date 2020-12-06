@@ -8,7 +8,7 @@
 //! of 3 or 5.
 //!
 //! ```
-//! # rusteuler::framework::run_solution(|| {
+//! # rusteuler::framework::run_solution(1, || {
 //! use std::{io::Write, sync::mpsc, thread};
 //!
 //! const UPPER_BOUND: u64 = 1000;
@@ -44,7 +44,7 @@
 //!     sum += val;
 //! }
 //! assert_eq!(sum, 233168);
-//! # Ok(1)
+//! # Ok(())
 //! # }).unwrap();
 //! ```
 //!

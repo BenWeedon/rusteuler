@@ -10,7 +10,7 @@
 //! up all the even numbers along the way.
 //!
 //! ```
-//! # rusteuler::framework::run_solution(|| {
+//! # rusteuler::framework::run_solution(2, || {
 //! const MAX_VAL: u64 = 4_000_000;
 //! let mut n1 = 1;
 //! let mut n2 = 2;
@@ -26,7 +26,7 @@
 //! }
 //!
 //! assert_eq!(sum, 4613732);
-//! # Ok(2)
+//! # Ok(())
 //! # }).unwrap();
 //! ```
 //!

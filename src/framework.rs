@@ -2,13 +2,14 @@
 
 use std::{error, fs::File, io::Write, time};
 
-pub fn run_solution<S: FnOnce() -> Result<u16, Box<dyn error::Error>>>(
+pub fn run_solution<S: FnOnce() -> Result<(), Box<dyn error::Error>>>(
+    problem_number: u16,
     solution: S,
 ) -> Result<(), Box<dyn error::Error>> {
     // start timing performance
     let start_time = time::SystemTime::now();
 
-    let problem_number = solution()?;
+    solution()?;
 
     // get the elapsed time
     let elapsed_time = start_time.elapsed()?;

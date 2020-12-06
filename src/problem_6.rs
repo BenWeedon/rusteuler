@@ -19,11 +19,11 @@
 //! the square of the sum from 1 to 100, and subtract them.
 //!
 //! ```
-//! # rusteuler::framework::run_solution(|| {
+//! # rusteuler::framework::run_solution(6, || {
 //! let sum_of_squares = (1..=100).map(|n: u64| n.pow(2)).sum::<u64>();
 //! let square_of_sum = (1..=100).sum::<u64>().pow(2);
 //! assert_eq!(square_of_sum - sum_of_squares, 25164150);
-//! # Ok(6)
+//! # Ok(())
 //! # }).unwrap();
 //! ```
 //!
