@@ -42,6 +42,8 @@
 <span id="39">39</span>
 <span id="40">40</span>
 <span id="41">41</span>
+<span id="42">42</span>
+<span id="43">43</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! &gt; A Pythagorean triplet is a set of three natural numbers, `a &lt; b &lt; c`, for</span>
 <span class="doccomment">//! which,</span>
@@ -53,13 +55,17 @@
 <span class="doccomment">//! &gt; There exists exactly one Pythagorean triplet for which `a + b + c =</span>
 <span class="doccomment">//! 1000`. Find the product `abc`.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! We iterate over all values of &lt;var&gt;a&lt;/var&gt;, &lt;var&gt;b&lt;/var&gt;, and &lt;var&gt;c&lt;/var&gt;</span>
-<span class="doccomment">//! less than 1000. Once we find a combination where both &lt;code&gt;a&lt;sup&gt;2&lt;/sup&gt; + b&lt;sup&gt;2&lt;/sup&gt; = c&lt;sup&gt;2&lt;/sup&gt;&lt;/code&gt;</span>
-<span class="doccomment">//! and &lt;code&gt;a + b + c = 1000&lt;/code&gt;, we break out of all the loops with the</span>
-<span class="doccomment">//! solution.</span>
+<span class="doccomment">//! We iterate over all values of &lt;var&gt;a&lt;/var&gt; from 0 to 1000, covering all</span>
+<span class="doccomment">//! natural numbers. Then, since &lt;var&gt;b&lt;/var&gt; must be greater than &lt;var&gt;a&lt;/var&gt;</span>
+<span class="doccomment">//! and &lt;var&gt;a&lt;/var&gt; plus &lt;var&gt;b&lt;/var&gt; can&#39;t be more than 1000, we iterate</span>
+<span class="doccomment">//! &lt;var&gt;b&lt;/var&gt; from `a + 1` to `1000 - a`. Technically, we could also account</span>
+<span class="doccomment">//! for &lt;var&gt;c&lt;/var&gt; being bigger than &lt;var&gt;b&lt;/var&gt; in this iteration and set</span>
+<span class="doccomment">//! the top limit even lower, but that isn&#39;t done here.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! This solution is pretty inefficient since it needs to iterate over so many</span>
-<span class="doccomment">//! numbers.</span>
+<span class="doccomment">//! Once we have values of &lt;var&gt;a&lt;/var&gt; and &lt;var&gt;b&lt;/var&gt;, we can subtract them</span>
+<span class="doccomment">//! from 1000 to get &lt;var&gt;c&lt;/var&gt;. Then it&#39;s just a matter of checking that</span>
+<span class="doccomment">//! &lt;var&gt;c&lt;/var&gt; is greater than &lt;var&gt;b&lt;/var&gt; and that they&#39;re a Pythagorean</span>
+<span class="doccomment">//! triplet, and we can break out of all the loops with the solution.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//! # rusteuler::framework::run_solution(9, || {</span>
@@ -67,13 +73,11 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! let mut solution = 0;</span>
 <span class="doccomment">//! &#39;outer: for a in 0..N {</span>
-<span class="doccomment">//!     for b in a + 1..N {</span>
-<span class="doccomment">//!         let c_squared = a.pow(2) + b.pow(2);</span>
-<span class="doccomment">//!         for c in b + 1..N {</span>
-<span class="doccomment">//!             if c.pow(2) == c_squared &amp;&amp; a + b + c == N {</span>
-<span class="doccomment">//!                 solution = a * b * c;</span>
-<span class="doccomment">//!                 break &#39;outer;</span>
-<span class="doccomment">//!             }</span>
+<span class="doccomment">//!     for b in a + 1..N - a {</span>
+<span class="doccomment">//!         let c = N - a - b;</span>
+<span class="doccomment">//!         if c &gt; b &amp;&amp; a.pow(2) + b.pow(2) == c.pow(2) {</span>
+<span class="doccomment">//!             solution = a * b * c;</span>
+<span class="doccomment">//!             break &#39;outer;</span>
 <span class="doccomment">//!         }</span>
 <span class="doccomment">//!     }</span>
 <span class="doccomment">//! }</span>
