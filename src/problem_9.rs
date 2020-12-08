@@ -9,11 +9,12 @@
 //! 1000`. Find the product `abc`.
 //!
 //! We iterate over all values of <var>a</var> from 0 to 1000, covering all
-//! natural numbers. Then, since <var>b</var> must be greater than <var>a</var>
-//! and <var>a</var> plus <var>b</var> can't be more than 1000, we iterate
-//! <var>b</var> from `a + 1` to `1000 - a`. Technically, we could also account
-//! for <var>c</var> being bigger than <var>b</var> in this iteration and set
-//! the top limit even lower, but that isn't done here.
+//! natural numbers. Then, since <var>b</var> must be at least 1 greater than
+//! <var>a</var>, <var>c</var> must be at least 1 greater than <var>b</var>,
+//! and <var>a</var> plus <var>b</var> plus <var>c</var> can't be more than
+//! 1000, we iterate <var>b</var> from `a + 1` to `1000 - (a + 1) - (a + 2)`.
+//! `a + 1` represents the minimum value of <var>b</var>, and `a + 2`
+//! represents the minimum value of <var>c</var>.
 //!
 //! Once we have values of <var>a</var> and <var>b</var>, we can subtract them
 //! from 1000 to get <var>c</var>. Then it's just a matter of checking that
@@ -26,7 +27,7 @@
 //!
 //! let mut solution = 0;
 //! 'outer: for a in 0..N {
-//!     for b in a + 1..N - a {
+//!     for b in a + 1..N - (a + 1) - (a + 2) {
 //!         let c = N - a - b;
 //!         if c > b && a.pow(2) + b.pow(2) == c.pow(2) {
 //!             solution = a * b * c;
