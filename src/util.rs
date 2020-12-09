@@ -1,5 +1,7 @@
 //! Utilities that can be shared across the solutions.
 
+use std::convert::TryInto;
+
 /// If `n` is less than or equal to 1, it isn't prime. If it's in the range
 /// `(1, 3]`, it is prime. If it's divisible by 2 or 3, it's not prime.
 ///
@@ -73,6 +75,82 @@ impl Iterator for PrimeIterTrial {
     }
 }
 
+/// An iterator which iterates over all primes under a given max by using the
+/// Sieve of Eratosthenes: https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
+pub struct PrimeIterEratosthenes {
+    index: usize,
+    table: Vec<bool>,
+    first_run: bool,
+}
+impl PrimeIterEratosthenes {
+    pub fn new(max_prime: usize) -> Self {
+        Self {
+            index: 0,
+            table: vec![false; Self::p_to_i(max_prime) + 1],
+            first_run: true,
+        }
+    }
+
+    const fn p_to_i(prime: usize) -> usize {
+        prime - 2
+    }
+
+    const fn i_to_p(index: usize) -> usize {
+        index + 2
+    }
+
+    fn step_index(&mut self) -> Option<bool> {
+        self.index += 1;
+        if self.index == self.table.len() {
+            None
+        } else {
+            Some(self.table[self.index])
+        }
+    }
+
+    fn get_next_prime(&mut self) -> Option<usize> {
+        if self.first_run {
+            self.first_run = false;
+            Some(2)
+        } else {
+            loop {
+                match self.step_index() {
+                    Some(is_composite) => {
+                        if !is_composite {
+                            break Some(Self::i_to_p(self.index));
+                        }
+                    }
+                    None => break None,
+                }
+            }
+        }
+    }
+
+    fn mark_multiples(&mut self) {
+        let mut i = self.index;
+        let initial_p = Self::i_to_p(i);
+        while i < self.table.len() {
+            self.table[i] = true;
+            let p = Self::i_to_p(i);
+            let new_p = p + initial_p;
+            i = Self::p_to_i(new_p);
+        }
+    }
+}
+impl Iterator for PrimeIterEratosthenes {
+    type Item = u64;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        match self.get_next_prime() {
+            Some(p) => {
+                self.mark_multiples();
+                Some(p.try_into().unwrap())
+            }
+            None => None,
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -120,5 +198,16 @@ mod tests {
     #[test]
     fn prime_iter_trial_test() {
         prime_iter_test(PrimeIterTrial::new());
+    }
+
+    #[test]
+    fn prime_iter_eratosthenes_test() {
+        prime_iter_test(PrimeIterEratosthenes::new(100));
+        prime_iter_test(PrimeIterEratosthenes::new(10));
+        prime_iter_test(PrimeIterEratosthenes::new(47));
+
+        assert_eq!(PrimeIterEratosthenes::new(10).last().unwrap(), 7);
+        assert_eq!(PrimeIterEratosthenes::new(47).last().unwrap(), 47);
+        assert_eq!(PrimeIterEratosthenes::new(48).last().unwrap(), 47);
     }
 }
