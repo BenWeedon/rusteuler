@@ -157,33 +157,33 @@ mod tests {
 
     #[test]
     fn is_prime_test() {
-        let primes = vec![2, 3, 5, 7, 11, 13, 17, 2521, 6089, 7919];
-        for n in primes {
+        const PRIMES: [u64; 10] = [2, 3, 5, 7, 11, 13, 17, 2521, 6089, 7919];
+        for n in PRIMES.iter() {
             println!("{}", n);
-            assert!(is_prime(n));
+            assert!(is_prime(*n));
         }
 
-        let non_primes = vec![0, 1, 4, 6, 8, 9, 27, 3973, 7249];
-        for n in non_primes {
+        const NON_PRIMES: [u64; 9] = [0, 1, 4, 6, 8, 9, 27, 3973, 7249];
+        for n in NON_PRIMES.iter() {
             println!("{}", n);
-            assert!(!is_prime(n));
+            assert!(!is_prime(*n));
         }
     }
 
     #[test]
     fn is_palindromic_test() {
-        let palindromes = vec![
+        const PALINDROMES: [u64; 13] = [
             0, 1, 9, 11, 55, 101, 111, 232, 5555, 5005, 6116, 70207, 10001,
         ];
-        for n in palindromes {
+        for n in PALINDROMES.iter() {
             println!("{}", n);
-            assert!(is_palindromic(n));
+            assert!(is_palindromic(*n));
         }
 
-        let non_palindromes = vec![12, 56, 72, 122, 311, 123, 1234, 5455, 71207];
-        for n in non_palindromes {
+        const NON_PALINDROMES: [u64; 9] = [12, 56, 72, 122, 311, 123, 1234, 5455, 71207];
+        for n in NON_PALINDROMES.iter() {
             println!("{}", n);
-            assert!(!is_palindromic(n));
+            assert!(!is_palindromic(*n));
         }
     }
 
