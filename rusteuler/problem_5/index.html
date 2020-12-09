@@ -10,8 +10,8 @@ the numbers from 1 to 20?</p>
 <p>First off, we don't need to check all the numbers from 1 to 20: we just
 need to check the primes. This is because if the number is divisible by,
 say 3 and 2, we know prime factorization means it must be divisible by 6.
-We use <a href="../../rusteuler/util/struct.PrimeIter.html"><code>util::PrimeIter</code></a> to iterate over the
-primes.</p>
+We use <a href="../../rusteuler/util/struct.PrimeIterTrial.html"><code>util::PrimeIterTrial</code></a> to iterate
+over the primes.</p>
 <p>Honestly, I don't totally remember the details of this one. I'll add those
 when I remember.</p>
 
@@ -20,7 +20,7 @@ when I remember.</p>
 
 <span class="kw">const</span> <span class="ident">K</span>: <span class="ident">u64</span> <span class="op">=</span> <span class="number">20</span>;
 <span class="kw">let</span> <span class="ident">limit</span> <span class="op">=</span> (<span class="ident">K</span> <span class="kw">as</span> <span class="ident">f64</span>).<span class="ident">sqrt</span>();
-<span class="kw">let</span> <span class="ident">solution</span> <span class="op">=</span> <span class="ident">util</span>::<span class="ident">PrimeIter</span>::<span class="ident">new</span>()
+<span class="kw">let</span> <span class="ident">solution</span> <span class="op">=</span> <span class="ident">util</span>::<span class="ident">PrimeIterTrial</span>::<span class="ident">new</span>()
     .<span class="ident">take_while</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span> <span class="op">&lt;</span><span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">K</span>)
     .<span class="ident">map</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> {
         <span class="kw">let</span> <span class="ident">a</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">p</span> <span class="kw">as</span> <span class="ident">f64</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">limit</span> {
@@ -32,5 +32,5 @@ when I remember.</p>
     })
     .<span class="ident">product</span>::<span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>();
 <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">solution</span>, <span class="number">232792560</span>);</pre></div>
-<p>Runs in around 0.0000184000 seconds</p>
+<p>Runs in around 0.0000112000 seconds</p>
 </div></section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "rusteuler";</script><script src="../../main.js"></script><script defer src="../../search-index.js"></script></body></html>

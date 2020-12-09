@@ -49,8 +49,8 @@
 <span class="doccomment">//! First off, we don&#39;t need to check all the numbers from 1 to 20: we just</span>
 <span class="doccomment">//! need to check the primes. This is because if the number is divisible by,</span>
 <span class="doccomment">//! say 3 and 2, we know prime factorization means it must be divisible by 6.</span>
-<span class="doccomment">//! We use [`util::PrimeIter`](crate::util::PrimeIter) to iterate over the</span>
-<span class="doccomment">//! primes.</span>
+<span class="doccomment">//! We use [`util::PrimeIterTrial`](crate::util::PrimeIterTrial) to iterate</span>
+<span class="doccomment">//! over the primes.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Honestly, I don&#39;t totally remember the details of this one. I&#39;ll add those</span>
 <span class="doccomment">//! when I remember.</span>
@@ -61,7 +61,7 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! const K: u64 = 20;</span>
 <span class="doccomment">//! let limit = (K as f64).sqrt();</span>
-<span class="doccomment">//! let solution = util::PrimeIter::new()</span>
+<span class="doccomment">//! let solution = util::PrimeIterTrial::new()</span>
 <span class="doccomment">//!     .take_while(|p| p &lt;= &amp;K)</span>
 <span class="doccomment">//!     .map(|p| {</span>
 <span class="doccomment">//!         let a = if p as f64 &lt;= limit {</span>

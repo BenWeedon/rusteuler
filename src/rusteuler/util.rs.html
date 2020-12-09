@@ -122,6 +122,9 @@
 <span id="119">119</span>
 <span id="120">120</span>
 <span id="121">121</span>
+<span id="122">122</span>
+<span id="123">123</span>
+<span id="124">124</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Utilities that can be shared across the solutions.</span>
 
@@ -172,20 +175,20 @@
 
 <span class="doccomment">/// An iterator which iterates over all primes by simply incrementing an</span>
 <span class="doccomment">/// internal count and calling [`is_prime`] to check if it should be returned.</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PrimeIter</span> {
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PrimeIterTrial</span> {
     <span class="ident">curr_prime</span>: <span class="ident">u64</span>,
 }
-<span class="kw">impl</span> <span class="ident">PrimeIter</span> {
+<span class="kw">impl</span> <span class="ident">PrimeIterTrial</span> {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span> { <span class="ident">curr_prime</span>: <span class="number">1</span> }
     }
 }
-<span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">PrimeIter</span> {
+<span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">PrimeIterTrial</span> {
     <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
         <span class="self">Self</span>::<span class="ident">new</span>()
     }
 }
-<span class="kw">impl</span> <span class="ident">Iterator</span> <span class="kw">for</span> <span class="ident">PrimeIter</span> {
+<span class="kw">impl</span> <span class="ident">Iterator</span> <span class="kw">for</span> <span class="ident">PrimeIterTrial</span> {
     <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="ident">u64</span>;
 
     <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Item</span><span class="op">&gt;</span> {
@@ -203,7 +206,7 @@
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">is_prime_works</span>() {
+    <span class="kw">fn</span> <span class="ident">is_prime_test</span>() {
         <span class="kw">let</span> <span class="ident">primes</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">13</span>, <span class="number">17</span>, <span class="number">2521</span>, <span class="number">6089</span>, <span class="number">7919</span>];
         <span class="kw">for</span> <span class="ident">n</span> <span class="kw">in</span> <span class="ident">primes</span> {
             <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">n</span>);
@@ -218,7 +221,7 @@
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">is_palindromic_works</span>() {
+    <span class="kw">fn</span> <span class="ident">is_palindromic_test</span>() {
         <span class="kw">let</span> <span class="ident">palindromes</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[
             <span class="number">0</span>, <span class="number">1</span>, <span class="number">9</span>, <span class="number">11</span>, <span class="number">55</span>, <span class="number">101</span>, <span class="number">111</span>, <span class="number">232</span>, <span class="number">5555</span>, <span class="number">5005</span>, <span class="number">6116</span>, <span class="number">70207</span>, <span class="number">10001</span>,
         ];
@@ -234,14 +237,17 @@
         }
     }
 
-    <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">prime_iter_works</span>() {
-        <span class="kw">let</span> <span class="ident">primes</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">13</span>, <span class="number">17</span>, <span class="number">19</span>, <span class="number">23</span>, <span class="number">29</span>, <span class="number">31</span>, <span class="number">37</span>, <span class="number">41</span>, <span class="number">43</span>, <span class="number">47</span>];
-        <span class="kw">let</span> <span class="ident">p_iter</span> <span class="op">=</span> <span class="ident">PrimeIter</span>::<span class="ident">new</span>();
-        <span class="kw">for</span> (<span class="ident">p1</span>, <span class="ident">p2</span>) <span class="kw">in</span> <span class="ident">p_iter</span>.<span class="ident">zip</span>(<span class="ident">primes</span>) {
+    <span class="kw">fn</span> <span class="ident">prime_iter_test</span>(<span class="ident">iter</span>: <span class="kw">impl</span> <span class="ident">Iterator</span><span class="op">&lt;</span><span class="ident">Item</span> <span class="op">=</span> <span class="ident">u64</span><span class="op">&gt;</span>) {
+        <span class="kw">const</span> <span class="ident">PRIMES</span>: [<span class="ident">u64</span>; <span class="number">15</span>] <span class="op">=</span> [<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">13</span>, <span class="number">17</span>, <span class="number">19</span>, <span class="number">23</span>, <span class="number">29</span>, <span class="number">31</span>, <span class="number">37</span>, <span class="number">41</span>, <span class="number">43</span>, <span class="number">47</span>];
+        <span class="kw">for</span> (<span class="ident">p1</span>, <span class="ident">p2</span>) <span class="kw">in</span> <span class="ident">iter</span>.<span class="ident">zip</span>(<span class="kw-2">&amp;</span><span class="ident">PRIMES</span>) {
             <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;{}, {}&quot;</span>, <span class="ident">p1</span>, <span class="ident">p2</span>);
-            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">p1</span>, <span class="ident">p2</span>);
+            <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">p1</span>, <span class="kw-2">*</span><span class="ident">p2</span>);
         }
+    }
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">prime_iter_trial_test</span>() {
+        <span class="ident">prime_iter_test</span>(<span class="ident">PrimeIterTrial</span>::<span class="ident">new</span>());
     }
 }
 </pre></div>

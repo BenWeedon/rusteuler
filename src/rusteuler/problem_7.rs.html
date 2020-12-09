@@ -29,13 +29,13 @@
 <span class="doccomment">//! Prime generation by running [`util::is_prime`](crate::util::is_prime) on</span>
 <span class="doccomment">//! every number seems to be fast enough to fairly quickly iterate over primes</span>
 <span class="doccomment">//! until I reach the 10001st one. I use</span>
-<span class="doccomment">//! [`util::PrimeIter`](crate::util::PrimeIter) for iteration.</span>
+<span class="doccomment">//! [`util::PrimeIterTrial`](crate::util::PrimeIterTrial) for iteration.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//! # rusteuler::framework::run_solution(7, || {</span>
 <span class="doccomment">//! use rusteuler::util;</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! let solution = util::PrimeIter::new().nth(10000).unwrap();</span>
+<span class="doccomment">//! let solution = util::PrimeIterTrial::new().nth(10000).unwrap();</span>
 <span class="doccomment">//! assert_eq!(solution, 104743);</span>
 <span class="doccomment">//! # Ok(())</span>
 <span class="doccomment">//! # }).unwrap();</span>

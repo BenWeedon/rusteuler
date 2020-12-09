@@ -7,8 +7,8 @@
 </blockquote>
 <p>This solution uses a fairly naive approach. We simply iterate through all
 primes less than two million and take their sum. It uses
-<a href="../../rusteuler/util/struct.PrimeIter.html"><code>util::PrimeIter</code></a>, which is a trial based prime
-iterator: it iterates through numbers, running
+<a href="../../rusteuler/util/struct.PrimeIterTrial.html"><code>util::PrimeIterTrial</code></a>, which is a trial
+based prime iterator: it iterates through numbers, running
 <a href="../../rusteuler/util/fn.is_prime.html"><code>util::is_prime</code></a> on each one.</p>
 <p>A more efficient solution could use an iterator based off of the Sieve of
 Eratosthenes with a max value of 1_999_999.</p>
@@ -16,9 +16,9 @@ Eratosthenes with a max value of 1_999_999.</p>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="kw">use</span> <span class="ident">rusteuler</span>::<span class="ident">util</span>;
 
-<span class="kw">let</span> <span class="ident">solution</span> <span class="op">=</span> <span class="ident">util</span>::<span class="ident">PrimeIter</span>::<span class="ident">new</span>()
+<span class="kw">let</span> <span class="ident">solution</span> <span class="op">=</span> <span class="ident">util</span>::<span class="ident">PrimeIterTrial</span>::<span class="ident">new</span>()
     .<span class="ident">take_while</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span> <span class="op">&lt;</span> <span class="kw-2">&amp;</span><span class="number">2_000_000</span>)
     .<span class="ident">sum</span>::<span class="op">&lt;</span><span class="ident">u64</span><span class="op">&gt;</span>();
 <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">solution</span>, <span class="number">142913828922</span>);</pre></div>
-<p>Runs in around 0.4763695760 seconds</p>
+<p>Runs in around 0.3272994400 seconds</p>
 </div></section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "rusteuler";</script><script src="../../main.js"></script><script defer src="../../search-index.js"></script></body></html>

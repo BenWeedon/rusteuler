@@ -34,8 +34,8 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! This solution uses a fairly naive approach. We simply iterate through all</span>
 <span class="doccomment">//! primes less than two million and take their sum. It uses</span>
-<span class="doccomment">//! [`util::PrimeIter`](crate::util::PrimeIter), which is a trial based prime</span>
-<span class="doccomment">//! iterator: it iterates through numbers, running</span>
+<span class="doccomment">//! [`util::PrimeIterTrial`](crate::util::PrimeIterTrial), which is a trial</span>
+<span class="doccomment">//! based prime iterator: it iterates through numbers, running</span>
 <span class="doccomment">//! [`util::is_prime`](crate::util::is_prime) on each one.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! A more efficient solution could use an iterator based off of the Sieve of</span>
@@ -45,7 +45,7 @@
 <span class="doccomment">//! # rusteuler::framework::run_solution(10, || {</span>
 <span class="doccomment">//! use rusteuler::util;</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! let solution = util::PrimeIter::new()</span>
+<span class="doccomment">//! let solution = util::PrimeIterTrial::new()</span>
 <span class="doccomment">//!     .take_while(|p| p &lt; &amp;2_000_000)</span>
 <span class="doccomment">//!     .sum::&lt;u64&gt;();</span>
 <span class="doccomment">//! assert_eq!(solution, 142913828922);</span>
