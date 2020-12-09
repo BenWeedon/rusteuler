@@ -32,8 +32,9 @@
 //! longer.
 //!
 //! We define a couple types. First is `Direction`, which enumerates all
-//! possible directions to get the product starting at a particular cell.
-//! Second is `GridProductIter`, which is an
+//! possible directions to get the product starting at a particular cell. We
+//! only have 4 directions rather than 8 because half the directions encompass
+//! the same lines as the other half. Second is `GridProductIter`, which is an
 //! [`Iterator`](https://doc.rust-lang.org/std/iter/trait.Iterator.html)
 //! implementation which returns products sequentially.
 //!
@@ -84,10 +85,6 @@
 //!     UpRight,
 //!     Right,
 //!     DownRight,
-//!     Down,
-//!     DownLeft,
-//!     Left,
-//!     UpLeft,
 //! }
 //!
 //! struct GridProductIter {
@@ -141,16 +138,6 @@
 //!             Direction::DownRight => {
 //!                 self.do_product(|inc, x, y| self.get_at(Some(x + inc), Some(y + inc)))
 //!             }
-//!             Direction::Down => self.do_product(|inc, x, y| self.get_at(Some(x), Some(y + inc))),
-//!             Direction::DownLeft => {
-//!                 self.do_product(|inc, x, y| self.get_at(x.checked_sub(inc), Some(y + inc)))
-//!             }
-//!             Direction::Left => {
-//!                 self.do_product(|inc, x, y| self.get_at(x.checked_sub(inc), Some(y)))
-//!             }
-//!             Direction::UpLeft => {
-//!                 self.do_product(|inc, x, y| self.get_at(x.checked_sub(inc), y.checked_sub(inc)))
-//!             }
 //!         }
 //!     }
 //!     fn next_state(&mut self) {
@@ -158,11 +145,7 @@
 //!             Direction::Up => self.direction = Direction::UpRight,
 //!             Direction::UpRight => self.direction = Direction::Right,
 //!             Direction::Right => self.direction = Direction::DownRight,
-//!             Direction::DownRight => self.direction = Direction::Down,
-//!             Direction::Down => self.direction = Direction::DownLeft,
-//!             Direction::DownLeft => self.direction = Direction::Left,
-//!             Direction::Left => self.direction = Direction::UpLeft,
-//!             Direction::UpLeft => {
+//!             Direction::DownRight => {
 //!                 self.direction = Direction::Up;
 //!                 self.index += 1;
 //!             }
@@ -172,19 +155,17 @@
 //! impl Iterator for GridProductIter {
 //!     type Item = u64;
 //!     fn next(&mut self) -> Option<Self::Item> {
-//!         if self.index < GRID.len() {
-//!             let product = loop {
-//!                 if let Some(p) = self.calculate_product() {
-//!                     break p;
-//!                 } else {
-//!                     self.next_state();
-//!                 }
-//!             };
-//!             self.next_state();
-//!             Some(product)
-//!         } else {
-//!             None
-//!         }
+//!         let product = loop {
+//!             if self.index == GRID.len() {
+//!                 return None;
+//!             } else if let Some(p) = self.calculate_product() {
+//!                 break p;
+//!             } else {
+//!                 self.next_state();
+//!             }
+//!         };
+//!         self.next_state();
+//!         Some(product)
 //!     }
 //! }
 //!
