@@ -23,31 +23,23 @@
 <span id="20">20</span>
 <span id="21">21</span>
 <span id="22">22</span>
-<span id="23">23</span>
-<span id="24">24</span>
-<span id="25">25</span>
-<span id="26">26</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! &gt; The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.</span>
 <span class="doccomment">//! &gt;</span>
 <span class="doccomment">//! &gt; Find the sum of all the primes below two million.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! This solution uses a fairly naive approach. We simply iterate through all</span>
-<span class="doccomment">//! primes less than two million and take their sum. It uses</span>
-<span class="doccomment">//! [`util::PrimeIterTrial`](crate::util::PrimeIterTrial), which is a trial</span>
-<span class="doccomment">//! based prime iterator: it iterates through numbers, running</span>
-<span class="doccomment">//! [`util::is_prime`](crate::util::is_prime) on each one.</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! A more efficient solution could use an iterator based off of the Sieve of</span>
-<span class="doccomment">//! Eratosthenes with a max value of 1_999_999.</span>
+<span class="doccomment">//! For this solution, we iterate through all primes less than two million and</span>
+<span class="doccomment">//! take their sum. It uses</span>
+<span class="doccomment">//! [`util::PrimeIterEratosthenes`](crate::util::PrimeIterEratosthenes), which</span>
+<span class="doccomment">//! is an iterator based on the Sieve of Eratosthenes. This kind of iterator is</span>
+<span class="doccomment">//! much faster than trial iteration, although it requires you to specify a</span>
+<span class="doccomment">//! maximum bound.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```</span>
 <span class="doccomment">//! # rusteuler::framework::run_solution(10, || {</span>
 <span class="doccomment">//! use rusteuler::util;</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! let solution = util::PrimeIterTrial::new()</span>
-<span class="doccomment">//!     .take_while(|p| p &lt; &amp;2_000_000)</span>
-<span class="doccomment">//!     .sum::&lt;u64&gt;();</span>
+<span class="doccomment">//! let solution = util::PrimeIterEratosthenes::new(1_999_999).sum::&lt;u64&gt;();</span>
 <span class="doccomment">//! assert_eq!(solution, 142913828922);</span>
 <span class="doccomment">//! # Ok(())</span>
 <span class="doccomment">//! # }).unwrap();</span>
