@@ -2,22 +2,18 @@
 //! >
 //! > Find the sum of all the primes below two million.
 //!
-//! This solution uses a fairly naive approach. We simply iterate through all
-//! primes less than two million and take their sum. It uses
-//! [`util::PrimeIterTrial`](crate::util::PrimeIterTrial), which is a trial
-//! based prime iterator: it iterates through numbers, running
-//! [`util::is_prime`](crate::util::is_prime) on each one.
-//!
-//! A more efficient solution could use an iterator based off of the Sieve of
-//! Eratosthenes with a max value of 1_999_999.
+//! For this solution, we iterate through all primes less than two million and
+//! take their sum. It uses
+//! [`util::PrimeIterEratosthenes`](crate::util::PrimeIterEratosthenes), which
+//! is an iterator based on the Sieve of Eratosthenes. This kind of iterator is
+//! much faster than trial iteration, although it requires you to specify a
+//! maximum bound.
 //!
 //! ```
 //! # rusteuler::framework::run_solution(10, || {
 //! use rusteuler::util;
 //!
-//! let solution = util::PrimeIterTrial::new()
-//!     .take_while(|p| p < &2_000_000)
-//!     .sum::<u64>();
+//! let solution = util::PrimeIterEratosthenes::new(1_999_999).sum::<u64>();
 //! assert_eq!(solution, 142913828922);
 //! # Ok(())
 //! # }).unwrap();
