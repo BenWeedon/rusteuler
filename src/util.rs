@@ -76,7 +76,8 @@ impl Iterator for PrimeIterTrial {
 }
 
 /// An iterator which iterates over all primes under a given max by using the
-/// Sieve of Eratosthenes: https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
+/// [Sieve of
+/// Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes).
 pub struct PrimeIterEratosthenes {
     index: usize,
     table: Vec<bool>,
