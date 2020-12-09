@@ -214,6 +214,7 @@
 <span id="211">211</span>
 <span id="212">212</span>
 <span id="213">213</span>
+<span id="214">214</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! Utilities that can be shared across the solutions.</span>
 
@@ -293,7 +294,8 @@
 }
 
 <span class="doccomment">/// An iterator which iterates over all primes under a given max by using the</span>
-<span class="doccomment">/// Sieve of Eratosthenes: https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes</span>
+<span class="doccomment">/// [Sieve of</span>
+<span class="doccomment">/// Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes).</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PrimeIterEratosthenes</span> {
     <span class="ident">index</span>: <span class="ident">usize</span>,
     <span class="ident">table</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>,
