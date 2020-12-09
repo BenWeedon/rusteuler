@@ -179,25 +179,6 @@
 <span id="176">176</span>
 <span id="177">177</span>
 <span id="178">178</span>
-<span id="179">179</span>
-<span id="180">180</span>
-<span id="181">181</span>
-<span id="182">182</span>
-<span id="183">183</span>
-<span id="184">184</span>
-<span id="185">185</span>
-<span id="186">186</span>
-<span id="187">187</span>
-<span id="188">188</span>
-<span id="189">189</span>
-<span id="190">190</span>
-<span id="191">191</span>
-<span id="192">192</span>
-<span id="193">193</span>
-<span id="194">194</span>
-<span id="195">195</span>
-<span id="196">196</span>
-<span id="197">197</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! &gt; In the 20×20 grid below, four numbers along a diagonal line have been</span>
 <span class="doccomment">//! marked in red.</span>
@@ -233,8 +214,9 @@
 <span class="doccomment">//! longer.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! We define a couple types. First is `Direction`, which enumerates all</span>
-<span class="doccomment">//! possible directions to get the product starting at a particular cell.</span>
-<span class="doccomment">//! Second is `GridProductIter`, which is an</span>
+<span class="doccomment">//! possible directions to get the product starting at a particular cell. We</span>
+<span class="doccomment">//! only have 4 directions rather than 8 because half the directions encompass</span>
+<span class="doccomment">//! the same lines as the other half. Second is `GridProductIter`, which is an</span>
 <span class="doccomment">//! [`Iterator`](https://doc.rust-lang.org/std/iter/trait.Iterator.html)</span>
 <span class="doccomment">//! implementation which returns products sequentially.</span>
 <span class="doccomment">//!</span>
@@ -285,10 +267,6 @@
 <span class="doccomment">//!     UpRight,</span>
 <span class="doccomment">//!     Right,</span>
 <span class="doccomment">//!     DownRight,</span>
-<span class="doccomment">//!     Down,</span>
-<span class="doccomment">//!     DownLeft,</span>
-<span class="doccomment">//!     Left,</span>
-<span class="doccomment">//!     UpLeft,</span>
 <span class="doccomment">//! }</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! struct GridProductIter {</span>
@@ -342,16 +320,6 @@
 <span class="doccomment">//!             Direction::DownRight =&gt; {</span>
 <span class="doccomment">//!                 self.do_product(|inc, x, y| self.get_at(Some(x + inc), Some(y + inc)))</span>
 <span class="doccomment">//!             }</span>
-<span class="doccomment">//!             Direction::Down =&gt; self.do_product(|inc, x, y| self.get_at(Some(x), Some(y + inc))),</span>
-<span class="doccomment">//!             Direction::DownLeft =&gt; {</span>
-<span class="doccomment">//!                 self.do_product(|inc, x, y| self.get_at(x.checked_sub(inc), Some(y + inc)))</span>
-<span class="doccomment">//!             }</span>
-<span class="doccomment">//!             Direction::Left =&gt; {</span>
-<span class="doccomment">//!                 self.do_product(|inc, x, y| self.get_at(x.checked_sub(inc), Some(y)))</span>
-<span class="doccomment">//!             }</span>
-<span class="doccomment">//!             Direction::UpLeft =&gt; {</span>
-<span class="doccomment">//!                 self.do_product(|inc, x, y| self.get_at(x.checked_sub(inc), y.checked_sub(inc)))</span>
-<span class="doccomment">//!             }</span>
 <span class="doccomment">//!         }</span>
 <span class="doccomment">//!     }</span>
 <span class="doccomment">//!     fn next_state(&amp;mut self) {</span>
@@ -359,11 +327,7 @@
 <span class="doccomment">//!             Direction::Up =&gt; self.direction = Direction::UpRight,</span>
 <span class="doccomment">//!             Direction::UpRight =&gt; self.direction = Direction::Right,</span>
 <span class="doccomment">//!             Direction::Right =&gt; self.direction = Direction::DownRight,</span>
-<span class="doccomment">//!             Direction::DownRight =&gt; self.direction = Direction::Down,</span>
-<span class="doccomment">//!             Direction::Down =&gt; self.direction = Direction::DownLeft,</span>
-<span class="doccomment">//!             Direction::DownLeft =&gt; self.direction = Direction::Left,</span>
-<span class="doccomment">//!             Direction::Left =&gt; self.direction = Direction::UpLeft,</span>
-<span class="doccomment">//!             Direction::UpLeft =&gt; {</span>
+<span class="doccomment">//!             Direction::DownRight =&gt; {</span>
 <span class="doccomment">//!                 self.direction = Direction::Up;</span>
 <span class="doccomment">//!                 self.index += 1;</span>
 <span class="doccomment">//!             }</span>
@@ -373,19 +337,17 @@
 <span class="doccomment">//! impl Iterator for GridProductIter {</span>
 <span class="doccomment">//!     type Item = u64;</span>
 <span class="doccomment">//!     fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt; {</span>
-<span class="doccomment">//!         if self.index &lt; GRID.len() {</span>
-<span class="doccomment">//!             let product = loop {</span>
-<span class="doccomment">//!                 if let Some(p) = self.calculate_product() {</span>
-<span class="doccomment">//!                     break p;</span>
-<span class="doccomment">//!                 } else {</span>
-<span class="doccomment">//!                     self.next_state();</span>
-<span class="doccomment">//!                 }</span>
-<span class="doccomment">//!             };</span>
-<span class="doccomment">//!             self.next_state();</span>
-<span class="doccomment">//!             Some(product)</span>
-<span class="doccomment">//!         } else {</span>
-<span class="doccomment">//!             None</span>
-<span class="doccomment">//!         }</span>
+<span class="doccomment">//!         let product = loop {</span>
+<span class="doccomment">//!             if self.index == GRID.len() {</span>
+<span class="doccomment">//!                 return None;</span>
+<span class="doccomment">//!             } else if let Some(p) = self.calculate_product() {</span>
+<span class="doccomment">//!                 break p;</span>
+<span class="doccomment">//!             } else {</span>
+<span class="doccomment">//!                 self.next_state();</span>
+<span class="doccomment">//!             }</span>
+<span class="doccomment">//!         };</span>
+<span class="doccomment">//!         self.next_state();</span>
+<span class="doccomment">//!         Some(product)</span>
 <span class="doccomment">//!     }</span>
 <span class="doccomment">//! }</span>
 <span class="doccomment">//!</span>

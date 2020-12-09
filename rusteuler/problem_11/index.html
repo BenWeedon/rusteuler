@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `problem_11` mod in crate `rusteuler`."><meta name="keywords" content="rust, rustlang, rust-lang, problem_11"><title>rusteuler::problem_11 - Rust</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="stylesheet" type="text/css" href="../../theme.css"><link rel="icon" type="image/svg+xml" href="../../favicon.svg">
 <link rel="alternate icon" type="image/png" href="../../favicon-16x16.png">
 <link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../rusteuler/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a><p class='location'>Module problem_11</p><div class="sidebar-elems"><p class='location'><a href='../index.html'>rusteuler</a></p><script>window.sidebarCurrent = {name: 'problem_11', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><span class="help-button">?</span>
-                <a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../../src/rusteuler/problem_11.rs.html#1-197' title='goto source code'>[src]</a></span><span class='in-band'>Module <a href='../index.html'>rusteuler</a>::<wbr><a class="mod" href=''>problem_11</a></span></h1><div class='docblock'><blockquote>
+                <a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../../src/rusteuler/problem_11.rs.html#1-178' title='goto source code'>[src]</a></span><span class='in-band'>Module <a href='../index.html'>rusteuler</a>::<wbr><a class="mod" href=''>problem_11</a></span></h1><div class='docblock'><blockquote>
 <p>In the 20×20 grid below, four numbers along a diagonal line have been
 marked in red.</p>
 <p>08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08 <br />
@@ -32,8 +32,9 @@ direction (up, down, left, right, or diagonally) in the 20×20 grid?</p>
 tried to use best practices throughout, even though it made the code
 longer.</p>
 <p>We define a couple types. First is <code>Direction</code>, which enumerates all
-possible directions to get the product starting at a particular cell.
-Second is <code>GridProductIter</code>, which is an
+possible directions to get the product starting at a particular cell. We
+only have 4 directions rather than 8 because half the directions encompass
+the same lines as the other half. Second is <code>GridProductIter</code>, which is an
 <a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html"><code>Iterator</code></a>
 implementation which returns products sequentially.</p>
 <p>The grid is stored in a 1D array, and indexes are converted back-and-forth
@@ -80,10 +81,6 @@ underflowed.</p>
     <span class="ident">UpRight</span>,
     <span class="ident">Right</span>,
     <span class="ident">DownRight</span>,
-    <span class="ident">Down</span>,
-    <span class="ident">DownLeft</span>,
-    <span class="ident">Left</span>,
-    <span class="ident">UpLeft</span>,
 }
 
 <span class="kw">struct</span> <span class="ident">GridProductIter</span> {
@@ -137,16 +134,6 @@ underflowed.</p>
             <span class="ident">Direction</span>::<span class="ident">DownRight</span> <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="self">self</span>.<span class="ident">do_product</span>(<span class="op">|</span><span class="ident">inc</span>, <span class="ident">x</span>, <span class="ident">y</span><span class="op">|</span> <span class="self">self</span>.<span class="ident">get_at</span>(<span class="prelude-val">Some</span>(<span class="ident">x</span> <span class="op">+</span> <span class="ident">inc</span>), <span class="prelude-val">Some</span>(<span class="ident">y</span> <span class="op">+</span> <span class="ident">inc</span>)))
             }
-            <span class="ident">Direction</span>::<span class="ident">Down</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">do_product</span>(<span class="op">|</span><span class="ident">inc</span>, <span class="ident">x</span>, <span class="ident">y</span><span class="op">|</span> <span class="self">self</span>.<span class="ident">get_at</span>(<span class="prelude-val">Some</span>(<span class="ident">x</span>), <span class="prelude-val">Some</span>(<span class="ident">y</span> <span class="op">+</span> <span class="ident">inc</span>))),
-            <span class="ident">Direction</span>::<span class="ident">DownLeft</span> <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="self">self</span>.<span class="ident">do_product</span>(<span class="op">|</span><span class="ident">inc</span>, <span class="ident">x</span>, <span class="ident">y</span><span class="op">|</span> <span class="self">self</span>.<span class="ident">get_at</span>(<span class="ident">x</span>.<span class="ident">checked_sub</span>(<span class="ident">inc</span>), <span class="prelude-val">Some</span>(<span class="ident">y</span> <span class="op">+</span> <span class="ident">inc</span>)))
-            }
-            <span class="ident">Direction</span>::<span class="ident">Left</span> <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="self">self</span>.<span class="ident">do_product</span>(<span class="op">|</span><span class="ident">inc</span>, <span class="ident">x</span>, <span class="ident">y</span><span class="op">|</span> <span class="self">self</span>.<span class="ident">get_at</span>(<span class="ident">x</span>.<span class="ident">checked_sub</span>(<span class="ident">inc</span>), <span class="prelude-val">Some</span>(<span class="ident">y</span>)))
-            }
-            <span class="ident">Direction</span>::<span class="ident">UpLeft</span> <span class="op">=</span><span class="op">&gt;</span> {
-                <span class="self">self</span>.<span class="ident">do_product</span>(<span class="op">|</span><span class="ident">inc</span>, <span class="ident">x</span>, <span class="ident">y</span><span class="op">|</span> <span class="self">self</span>.<span class="ident">get_at</span>(<span class="ident">x</span>.<span class="ident">checked_sub</span>(<span class="ident">inc</span>), <span class="ident">y</span>.<span class="ident">checked_sub</span>(<span class="ident">inc</span>)))
-            }
         }
     }
     <span class="kw">fn</span> <span class="ident">next_state</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
@@ -154,11 +141,7 @@ underflowed.</p>
             <span class="ident">Direction</span>::<span class="ident">Up</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">direction</span> <span class="op">=</span> <span class="ident">Direction</span>::<span class="ident">UpRight</span>,
             <span class="ident">Direction</span>::<span class="ident">UpRight</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">direction</span> <span class="op">=</span> <span class="ident">Direction</span>::<span class="ident">Right</span>,
             <span class="ident">Direction</span>::<span class="ident">Right</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">direction</span> <span class="op">=</span> <span class="ident">Direction</span>::<span class="ident">DownRight</span>,
-            <span class="ident">Direction</span>::<span class="ident">DownRight</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">direction</span> <span class="op">=</span> <span class="ident">Direction</span>::<span class="ident">Down</span>,
-            <span class="ident">Direction</span>::<span class="ident">Down</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">direction</span> <span class="op">=</span> <span class="ident">Direction</span>::<span class="ident">DownLeft</span>,
-            <span class="ident">Direction</span>::<span class="ident">DownLeft</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">direction</span> <span class="op">=</span> <span class="ident">Direction</span>::<span class="ident">Left</span>,
-            <span class="ident">Direction</span>::<span class="ident">Left</span> <span class="op">=</span><span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">direction</span> <span class="op">=</span> <span class="ident">Direction</span>::<span class="ident">UpLeft</span>,
-            <span class="ident">Direction</span>::<span class="ident">UpLeft</span> <span class="op">=</span><span class="op">&gt;</span> {
+            <span class="ident">Direction</span>::<span class="ident">DownRight</span> <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="self">self</span>.<span class="ident">direction</span> <span class="op">=</span> <span class="ident">Direction</span>::<span class="ident">Up</span>;
                 <span class="self">self</span>.<span class="ident">index</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
             }
@@ -168,23 +151,21 @@ underflowed.</p>
 <span class="kw">impl</span> <span class="ident">Iterator</span> <span class="kw">for</span> <span class="ident">GridProductIter</span> {
     <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="ident">u64</span>;
     <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="self">Self</span>::<span class="ident">Item</span><span class="op">&gt;</span> {
-        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">index</span> <span class="op">&lt;</span> <span class="ident">GRID</span>.<span class="ident">len</span>() {
-            <span class="kw">let</span> <span class="ident">product</span> <span class="op">=</span> <span class="kw">loop</span> {
-                <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">p</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">calculate_product</span>() {
-                    <span class="kw">break</span> <span class="ident">p</span>;
-                } <span class="kw">else</span> {
-                    <span class="self">self</span>.<span class="ident">next_state</span>();
-                }
-            };
-            <span class="self">self</span>.<span class="ident">next_state</span>();
-            <span class="prelude-val">Some</span>(<span class="ident">product</span>)
-        } <span class="kw">else</span> {
-            <span class="prelude-val">None</span>
-        }
+        <span class="kw">let</span> <span class="ident">product</span> <span class="op">=</span> <span class="kw">loop</span> {
+            <span class="kw">if</span> <span class="self">self</span>.<span class="ident">index</span> <span class="op">=</span><span class="op">=</span> <span class="ident">GRID</span>.<span class="ident">len</span>() {
+                <span class="kw">return</span> <span class="prelude-val">None</span>;
+            } <span class="kw">else</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">p</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">calculate_product</span>() {
+                <span class="kw">break</span> <span class="ident">p</span>;
+            } <span class="kw">else</span> {
+                <span class="self">self</span>.<span class="ident">next_state</span>();
+            }
+        };
+        <span class="self">self</span>.<span class="ident">next_state</span>();
+        <span class="prelude-val">Some</span>(<span class="ident">product</span>)
     }
 }
 
 <span class="kw">let</span> <span class="ident">solution</span> <span class="op">=</span> <span class="ident">GridProductIter</span>::<span class="ident">new</span>().<span class="ident">max</span>().<span class="ident">unwrap</span>();
 <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">solution</span>, <span class="number">70600674</span>);</pre></div>
-<p>Runs in around 0.0016224990 seconds</p>
+<p>Runs in around 0.0005115320 seconds</p>
 </div></section><section id="search" class="content hidden"></section><section class="footer"></section><script>window.rootPath = "../../";window.currentCrate = "rusteuler";</script><script src="../../main.js"></script><script defer src="../../search-index.js"></script></body></html>
