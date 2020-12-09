@@ -374,33 +374,33 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">is_prime_test</span>() {
-        <span class="kw">let</span> <span class="ident">primes</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">13</span>, <span class="number">17</span>, <span class="number">2521</span>, <span class="number">6089</span>, <span class="number">7919</span>];
-        <span class="kw">for</span> <span class="ident">n</span> <span class="kw">in</span> <span class="ident">primes</span> {
+        <span class="kw">const</span> <span class="ident">PRIMES</span>: [<span class="ident">u64</span>; <span class="number">10</span>] <span class="op">=</span> [<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">13</span>, <span class="number">17</span>, <span class="number">2521</span>, <span class="number">6089</span>, <span class="number">7919</span>];
+        <span class="kw">for</span> <span class="ident">n</span> <span class="kw">in</span> <span class="ident">PRIMES</span>.<span class="ident">iter</span>() {
             <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">n</span>);
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">is_prime</span>(<span class="ident">n</span>));
+            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">is_prime</span>(<span class="kw-2">*</span><span class="ident">n</span>));
         }
 
-        <span class="kw">let</span> <span class="ident">non_primes</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">27</span>, <span class="number">3973</span>, <span class="number">7249</span>];
-        <span class="kw">for</span> <span class="ident">n</span> <span class="kw">in</span> <span class="ident">non_primes</span> {
+        <span class="kw">const</span> <span class="ident">NON_PRIMES</span>: [<span class="ident">u64</span>; <span class="number">9</span>] <span class="op">=</span> [<span class="number">0</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">27</span>, <span class="number">3973</span>, <span class="number">7249</span>];
+        <span class="kw">for</span> <span class="ident">n</span> <span class="kw">in</span> <span class="ident">NON_PRIMES</span>.<span class="ident">iter</span>() {
             <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">n</span>);
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">is_prime</span>(<span class="ident">n</span>));
+            <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">is_prime</span>(<span class="kw-2">*</span><span class="ident">n</span>));
         }
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">is_palindromic_test</span>() {
-        <span class="kw">let</span> <span class="ident">palindromes</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[
+        <span class="kw">const</span> <span class="ident">PALINDROMES</span>: [<span class="ident">u64</span>; <span class="number">13</span>] <span class="op">=</span> [
             <span class="number">0</span>, <span class="number">1</span>, <span class="number">9</span>, <span class="number">11</span>, <span class="number">55</span>, <span class="number">101</span>, <span class="number">111</span>, <span class="number">232</span>, <span class="number">5555</span>, <span class="number">5005</span>, <span class="number">6116</span>, <span class="number">70207</span>, <span class="number">10001</span>,
         ];
-        <span class="kw">for</span> <span class="ident">n</span> <span class="kw">in</span> <span class="ident">palindromes</span> {
+        <span class="kw">for</span> <span class="ident">n</span> <span class="kw">in</span> <span class="ident">PALINDROMES</span>.<span class="ident">iter</span>() {
             <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">n</span>);
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">is_palindromic</span>(<span class="ident">n</span>));
+            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">is_palindromic</span>(<span class="kw-2">*</span><span class="ident">n</span>));
         }
 
-        <span class="kw">let</span> <span class="ident">non_palindromes</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="number">12</span>, <span class="number">56</span>, <span class="number">72</span>, <span class="number">122</span>, <span class="number">311</span>, <span class="number">123</span>, <span class="number">1234</span>, <span class="number">5455</span>, <span class="number">71207</span>];
-        <span class="kw">for</span> <span class="ident">n</span> <span class="kw">in</span> <span class="ident">non_palindromes</span> {
+        <span class="kw">const</span> <span class="ident">NON_PALINDROMES</span>: [<span class="ident">u64</span>; <span class="number">9</span>] <span class="op">=</span> [<span class="number">12</span>, <span class="number">56</span>, <span class="number">72</span>, <span class="number">122</span>, <span class="number">311</span>, <span class="number">123</span>, <span class="number">1234</span>, <span class="number">5455</span>, <span class="number">71207</span>];
+        <span class="kw">for</span> <span class="ident">n</span> <span class="kw">in</span> <span class="ident">NON_PALINDROMES</span>.<span class="ident">iter</span>() {
             <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">n</span>);
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">is_palindromic</span>(<span class="ident">n</span>));
+            <span class="macro">assert</span><span class="macro">!</span>(<span class="op">!</span><span class="ident">is_palindromic</span>(<span class="kw-2">*</span><span class="ident">n</span>));
         }
     }
 
