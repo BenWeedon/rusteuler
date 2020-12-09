@@ -2,3 +2,7 @@ img[src*="problem_"][src$=".svg"] {
     background-color: white;
     border: 5px solid white;
 }
+
+.red {
+    color: #d00;
+}
