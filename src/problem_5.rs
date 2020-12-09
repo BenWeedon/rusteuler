@@ -7,8 +7,8 @@
 //! First off, we don't need to check all the numbers from 1 to 20: we just
 //! need to check the primes. This is because if the number is divisible by,
 //! say 3 and 2, we know prime factorization means it must be divisible by 6.
-//! We use [`util::PrimeIter`](crate::util::PrimeIter) to iterate over the
-//! primes.
+//! We use [`util::PrimeIterTrial`](crate::util::PrimeIterTrial) to iterate
+//! over the primes.
 //!
 //! Honestly, I don't totally remember the details of this one. I'll add those
 //! when I remember.
@@ -19,7 +19,7 @@
 //!
 //! const K: u64 = 20;
 //! let limit = (K as f64).sqrt();
-//! let solution = util::PrimeIter::new()
+//! let solution = util::PrimeIterTrial::new()
 //!     .take_while(|p| p <= &K)
 //!     .map(|p| {
 //!         let a = if p as f64 <= limit {

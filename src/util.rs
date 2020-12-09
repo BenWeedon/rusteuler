@@ -47,20 +47,20 @@ pub fn is_palindromic(n: u64) -> bool {
 
 /// An iterator which iterates over all primes by simply incrementing an
 /// internal count and calling [`is_prime`] to check if it should be returned.
-pub struct PrimeIter {
+pub struct PrimeIterTrial {
     curr_prime: u64,
 }
-impl PrimeIter {
+impl PrimeIterTrial {
     pub fn new() -> Self {
         Self { curr_prime: 1 }
     }
 }
-impl Default for PrimeIter {
+impl Default for PrimeIterTrial {
     fn default() -> Self {
         Self::new()
     }
 }
-impl Iterator for PrimeIter {
+impl Iterator for PrimeIterTrial {
     type Item = u64;
 
     fn next(&mut self) -> Option<Self::Item> {
@@ -78,7 +78,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn is_prime_works() {
+    fn is_prime_test() {
         let primes = vec![2, 3, 5, 7, 11, 13, 17, 2521, 6089, 7919];
         for n in primes {
             println!("{}", n);
@@ -93,7 +93,7 @@ mod tests {
     }
 
     #[test]
-    fn is_palindromic_works() {
+    fn is_palindromic_test() {
         let palindromes = vec![
             0, 1, 9, 11, 55, 101, 111, 232, 5555, 5005, 6116, 70207, 10001,
         ];
@@ -109,13 +109,16 @@ mod tests {
         }
     }
 
-    #[test]
-    fn prime_iter_works() {
-        let primes = vec![2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47];
-        let p_iter = PrimeIter::new();
-        for (p1, p2) in p_iter.zip(primes) {
+    fn prime_iter_test(iter: impl Iterator<Item = u64>) {
+        const PRIMES: [u64; 15] = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47];
+        for (p1, p2) in iter.zip(&PRIMES) {
             println!("{}, {}", p1, p2);
-            assert_eq!(p1, p2);
+            assert_eq!(p1, *p2);
         }
+    }
+
+    #[test]
+    fn prime_iter_trial_test() {
+        prime_iter_test(PrimeIterTrial::new());
     }
 }
